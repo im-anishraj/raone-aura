@@ -18,7 +18,7 @@ from vibe.setup.trusted_folders.trust_folder_dialog import (
 
 
 def parse_arguments() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run the Traon Vibe - by anish interactive CLI")
+    parser = argparse.ArgumentParser(description="Run the RaOne Aura interactive CLI")
     parser.add_argument(
         "-v", "--version", action="version", version=f"%(prog)s {__version__}"
     )
