@@ -1,11 +1,11 @@
 [project]
-name = "mistral-vibe"
-version = "2.1.0"
-description = "Minimal CLI coding agent by Mistral"
+name = "raone-aura"
+version = "1.0.0"
+description = "The omnipotent, local-first vibe coding engine for your terminal."
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "Apache-2.0" }
-authors = [{ name = "Mistral AI" }]
+authors = [{ name = "Anish Raj" }]
 keywords = [
     "ai",
     "cli",
@@ -55,10 +55,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/mistralai/mistral-vibe"
-Repository = "https://github.com/mistralai/mistral-vibe"
-Issues = "https://github.com/mistralai/mistral-vibe/issues"
-Documentation = "https://github.com/mistralai/mistral-vibe#readme"
+Homepage = "https://github.com/im-anishraj/raone-aura"
+Repository = "https://github.com/im-anishraj/raone-aura"
+Issues = "https://github.com/im-anishraj/raone-aura/issues"
+Documentation = "https://github.com/im-anishraj/raone-aura#readme"
 
 
 [build-system]
@@ -73,8 +73,8 @@ include = ["vibe/"]
 
 
 [project.scripts]
-vibe = "vibe.cli.entrypoint:main"
-vibe-acp = "vibe.acp.entrypoint:main"
+aura = "vibe.cli.entrypoint:main"
+aura-acp = "vibe.acp.entrypoint:main"
 
 
 [tool.uv]

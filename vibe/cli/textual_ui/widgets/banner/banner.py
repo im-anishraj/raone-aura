@@ -45,7 +45,7 @@ class Banner(Static):
 
             with Vertical(id="banner-info"):
                 with Horizontal(classes="banner-line"):
-                    yield NoMarkupStatic(f"Traon Vibe v{__version__}", id="banner-brand")
+                    yield NoMarkupStatic(f"RaOne Aura v{__version__}", id="banner-brand")
                     yield NoMarkupStatic(" - Autonomous AI Terminal Agent", id="banner-description")
                 
                 with Horizontal(classes="banner-line"):

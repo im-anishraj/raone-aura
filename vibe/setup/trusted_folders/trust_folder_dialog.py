@@ -53,7 +53,7 @@ class TrustFolderDialog(CenterMiddle):
                 classes="trust-dialog-path",
             )
             yield NoMarkupStatic(
-                "Files that can modify your Traon Vibe - by anish setup were found here. Do you trust this folder?",
+                "Files that can modify your RaOne Aura setup were found here. Do you trust this folder?",
                 id="trust-dialog-message",
                 classes="trust-dialog-message",
             )
