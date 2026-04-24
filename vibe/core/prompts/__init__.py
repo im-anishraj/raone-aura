@@ -19,6 +19,7 @@ class Prompt(StrEnum):
 
 class SystemPrompt(Prompt):
     CLI = auto()
+    TERMINAL_MIND = auto()
     TESTS = auto()
 
 

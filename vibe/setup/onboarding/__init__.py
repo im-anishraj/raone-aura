@@ -35,5 +35,5 @@ def run_onboarding(app: App | None = None) -> None:
             )
         case "completed":
             rprint(
-                '\nSetup complete 🎉. Run "vibe" to start using the Mistral Vibe CLI.\n'
+                '\nSetup complete 🎉. Run "aura" to start using RaOne Aura.\n'
             )
