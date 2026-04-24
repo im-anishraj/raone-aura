@@ -11,19 +11,19 @@ import pytest
 from tests.conftest import build_test_agent_loop, build_test_vibe_config
 from tests.mock.utils import mock_llm_chunk
 from tests.stubs.fake_backend import FakeBackend
-from vibe.core.agents.models import BuiltinAgentName
-from vibe.core.config import VibeConfig
-from vibe.core.llm.exceptions import BackendErrorBuilder
-from vibe.core.middleware import (
+from aura.core.agents.models import BuiltinAgentName
+from aura.core.config import AuraConfig
+from aura.core.llm.exceptions import BackendErrorBuilder
+from aura.core.middleware import (
     ConversationContext,
     MiddlewareAction,
     MiddlewarePipeline,
     MiddlewareResult,
     ResetReason,
 )
-from vibe.core.tools.base import BaseToolConfig, ToolPermission
-from vibe.core.tools.builtins.todo import TodoArgs
-from vibe.core.types import (
+from aura.core.tools.base import BaseToolConfig, ToolPermission
+from aura.core.tools.builtins.todo import TodoArgs
+from aura.core.types import (
     ApprovalResponse,
     AssistantEvent,
     FunctionCall,
@@ -36,7 +36,7 @@ from vibe.core.types import (
     ToolResultEvent,
     UserMessageEvent,
 )
-from vibe.core.utils import CancellationReason, get_user_cancellation_message
+from aura.core.utils import CancellationReason, get_user_cancellation_message
 
 
 class InjectBeforeMiddleware:
@@ -59,7 +59,7 @@ def make_config(
     *,
     enabled_tools: list[str] | None = None,
     tools: dict[str, BaseToolConfig] | None = None,
-) -> VibeConfig:
+) -> AuraConfig:
     return build_test_vibe_config(
         auto_compact_threshold=0,
         system_prompt_id="tests",
@@ -101,7 +101,7 @@ async def test_act_flushes_batched_messages_with_injection_middleware(
 
     assert len(observed) == 3
     assert [r for r, _ in observed] == [Role.system, Role.user, Role.assistant]
-    assert observed[0][1] == "You are Vibe, a super useful programming assistant."
+    assert observed[0][1] == "You are Aura, a super useful programming assistant."
     # injected content should be appended to the user's message before emission
     assert (
         observed[1][1]
@@ -128,7 +128,7 @@ async def test_stop_action_flushes_user_msg_before_returning(observer_capture) -
     assert len(observed) == 2
     # user's message should have been flushed before returning
     assert [r for r, _ in observed] == [Role.system, Role.user]
-    assert observed[0][1] == "You are Vibe, a super useful programming assistant."
+    assert observed[0][1] == "You are Aura, a super useful programming assistant."
     assert observed[1][1] == "Greet."
 
 
@@ -155,7 +155,7 @@ async def test_act_streams_batched_chunks_in_order() -> None:
     backend = FakeBackend([
         mock_llm_chunk(content="Hello"),
         mock_llm_chunk(content=" from"),
-        mock_llm_chunk(content=" Vibe"),
+        mock_llm_chunk(content=" Aura"),
         mock_llm_chunk(content="! "),
         mock_llm_chunk(content="More"),
         mock_llm_chunk(content=" and"),
@@ -170,11 +170,11 @@ async def test_act_streams_batched_chunks_in_order() -> None:
     assistant_events = [e for e in events if isinstance(e, AssistantEvent)]
     assert len(assistant_events) == 2
     assert [event.content for event in assistant_events] == [
-        "Hello from Vibe! More",
+        "Hello from Aura! More",
         " and end",
     ]
     assert agent.messages[-1].role == Role.assistant
-    assert agent.messages[-1].content == "Hello from Vibe! More and end"
+    assert agent.messages[-1].content == "Hello from Aura! More and end"
 
 
 @pytest.mark.asyncio

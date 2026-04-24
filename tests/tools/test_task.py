@@ -6,11 +6,11 @@ import pytest
 
 from tests.conftest import build_test_vibe_config
 from tests.mock.utils import collect_result
-from vibe.core.agents.manager import AgentManager
-from vibe.core.agents.models import BUILTIN_AGENTS, AgentType
-from vibe.core.tools.base import BaseToolState, InvokeContext, ToolError
-from vibe.core.tools.builtins.task import Task, TaskArgs, TaskResult, TaskToolConfig
-from vibe.core.types import AssistantEvent, LLMMessage, Role
+from aura.core.agents.manager import AgentManager
+from aura.core.agents.models import BUILTIN_AGENTS, AgentType
+from aura.core.tools.base import BaseToolState, InvokeContext, ToolError
+from aura.core.tools.builtins.task import Task, TaskArgs, TaskResult, TaskToolConfig
+from aura.core.types import AssistantEvent, LLMMessage, Role
 
 
 @pytest.fixture
@@ -101,7 +101,7 @@ class TestTaskToolExecution:
             yield AssistantEvent(content="Hello from subagent!")
             yield AssistantEvent(content=" More content.")
 
-        with patch("vibe.core.tools.builtins.task.AgentLoop") as mock_agent_loop_class:
+        with patch("aura.core.tools.builtins.task.AgentLoop") as mock_agent_loop_class:
             mock_agent_loop = MagicMock()
             mock_agent_loop.act = mock_act
             mock_agent_loop.messages = mock_messages
@@ -129,7 +129,7 @@ class TestTaskToolExecution:
         async def mock_act(task: str):
             yield AssistantEvent(content="Partial response", stopped_by_middleware=True)
 
-        with patch("vibe.core.tools.builtins.task.AgentLoop") as mock_agent_loop_class:
+        with patch("aura.core.tools.builtins.task.AgentLoop") as mock_agent_loop_class:
             mock_agent_loop = MagicMock()
             mock_agent_loop.act = mock_act
             mock_agent_loop.messages = mock_messages
@@ -153,7 +153,7 @@ class TestTaskToolExecution:
             yield AssistantEvent(content="Starting...")
             raise RuntimeError("Simulated error")
 
-        with patch("vibe.core.tools.builtins.task.AgentLoop") as mock_agent_loop_class:
+        with patch("aura.core.tools.builtins.task.AgentLoop") as mock_agent_loop_class:
             mock_agent_loop = MagicMock()
             mock_agent_loop.act = mock_act
             mock_agent_loop.messages = mock_messages

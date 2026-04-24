@@ -74,7 +74,7 @@ aura --agent accept-edits
 
 ## ⚙️ Configuration
 
-RaOne Aura is highly configurable via a `config.toml` file (located in `~/.vibe/config.toml` or your project's `.vibe/config.toml`). 
+RaOne Aura is highly configurable via a `config.toml` file (located in `~/.aura/config.toml` or your project's `.aura/config.toml`). 
 
 You can configure:
 - **LLM Providers**: Easily swap between local models (Ollama) or cloud providers.
@@ -86,7 +86,7 @@ You can configure:
 
 ## 🧩 Skills & Plugins
 
-Extend RaOne's capabilities by writing custom **Skills**. Skills can add new slash commands (like `/test` or `/review`) and specific tool sets. Drop your custom skills into `~/.vibe/skills/` and RaOne will automatically load them.
+Extend RaOne's capabilities by writing custom **Skills**. Skills can add new slash commands (like `/test` or `/review`) and specific tool sets. Drop your custom skills into `~/.aura/skills/` and RaOne will automatically load them.
 
 ---
 

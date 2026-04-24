@@ -7,8 +7,8 @@ import pytest
 from tests.conftest import build_test_agent_loop, build_test_vibe_config
 from tests.mock.utils import mock_llm_chunk
 from tests.stubs.fake_backend import FakeBackend
-from vibe.core.agents.manager import AgentManager
-from vibe.core.agents.models import (
+from aura.core.agents.manager import AgentManager
+from aura.core.agents.models import (
     BUILTIN_AGENTS,
     PLAN_AGENT_TOOLS,
     AgentProfile,
@@ -17,11 +17,11 @@ from vibe.core.agents.models import (
     BuiltinAgentName,
     _deep_merge,
 )
-from vibe.core.config import VibeConfig
-from vibe.core.paths.config_paths import ConfigPath
-from vibe.core.paths.global_paths import GlobalPath
-from vibe.core.tools.base import ToolPermission
-from vibe.core.types import (
+from aura.core.config import AuraConfig
+from aura.core.paths.config_paths import ConfigPath
+from aura.core.paths.global_paths import GlobalPath
+from aura.core.tools.base import ToolPermission
+from aura.core.types import (
     FunctionCall,
     LLMChunk,
     LLMMessage,
@@ -172,27 +172,27 @@ class TestAgentApplyToConfig:
     def test_custom_prompt_found_in_global_when_missing_from_project(
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        """Regression test for https://github.com/mistralai/mistral-vibe/issues/288
+        """Regression test for https://github.com/mistralai/mistral-aura/issues/288
 
         When a custom prompt .md file is absent from the project-local prompts
         directory, the system_prompt property should fall back to the global
-        ~/.vibe/prompts/ directory and load the file from there.
+        ~/.aura/prompts/ directory and load the file from there.
         """
-        project_prompts = tmp_path / "project" / ".vibe" / "prompts"
+        project_prompts = tmp_path / "project" / ".aura" / "prompts"
         project_prompts.mkdir(parents=True)
 
-        global_prompts = tmp_path / "home" / ".vibe" / "prompts"
+        global_prompts = tmp_path / "home" / ".aura" / "prompts"
         global_prompts.mkdir(parents=True)
         (global_prompts / "cc.md").write_text("Global custom prompt")
 
         monkeypatch.setattr(
-            "vibe.core.config.PROMPTS_DIR", ConfigPath(lambda: project_prompts)
+            "aura.core.config.PROMPTS_DIR", ConfigPath(lambda: project_prompts)
         )
         monkeypatch.setattr(
-            "vibe.core.config.GLOBAL_PROMPTS_DIR", GlobalPath(lambda: global_prompts)
+            "aura.core.config.GLOBAL_PROMPTS_DIR", GlobalPath(lambda: global_prompts)
         )
 
-        base = VibeConfig(include_project_context=False, include_prompt_detail=False)
+        base = AuraConfig(include_project_context=False, include_prompt_detail=False)
         agent = AgentProfile(
             name="cc",
             display_name="Cc",
@@ -230,7 +230,7 @@ class TestAgentProfileOverrides:
 
 class TestAgentManagerCycling:
     @pytest.fixture
-    def base_config(self) -> VibeConfig:
+    def base_config(self) -> AuraConfig:
         return build_test_vibe_config(
             auto_compact_threshold=0,
             include_project_context=False,
@@ -247,7 +247,7 @@ class TestAgentManagerCycling:
         ])
 
     def test_get_agent_order_includes_primary_agents(
-        self, base_config: VibeConfig, backend: FakeBackend
+        self, base_config: AuraConfig, backend: FakeBackend
     ) -> None:
         agent = build_test_agent_loop(
             config=base_config, agent_name=BuiltinAgentName.DEFAULT, backend=backend
@@ -260,7 +260,7 @@ class TestAgentManagerCycling:
         assert BuiltinAgentName.ACCEPT_EDITS in order
 
     def test_next_agent_cycles_through_all(
-        self, base_config: VibeConfig, backend: FakeBackend
+        self, base_config: AuraConfig, backend: FakeBackend
     ) -> None:
         agent = build_test_agent_loop(
             config=base_config, agent_name=BuiltinAgentName.DEFAULT, backend=backend
@@ -274,7 +274,7 @@ class TestAgentManagerCycling:
         assert len(set(visited)) == len(order)
 
     def test_next_agent_wraps_around(
-        self, base_config: VibeConfig, backend: FakeBackend
+        self, base_config: AuraConfig, backend: FakeBackend
     ) -> None:
         agent = build_test_agent_loop(
             config=base_config, agent_name=BuiltinAgentName.DEFAULT, backend=backend
@@ -299,7 +299,7 @@ class TestAgentProfileConfig:
 
 class TestAgentSwitchAgent:
     @pytest.fixture
-    def base_config(self) -> VibeConfig:
+    def base_config(self) -> AuraConfig:
         return build_test_vibe_config(
             auto_compact_threshold=0,
             include_project_context=False,
@@ -317,7 +317,7 @@ class TestAgentSwitchAgent:
 
     @pytest.mark.asyncio
     async def test_switch_to_plan_agent_restricts_tools(
-        self, base_config: VibeConfig, backend: FakeBackend
+        self, base_config: AuraConfig, backend: FakeBackend
     ) -> None:
         agent = build_test_agent_loop(
             config=base_config, agent_name=BuiltinAgentName.DEFAULT, backend=backend
@@ -333,7 +333,7 @@ class TestAgentSwitchAgent:
 
     @pytest.mark.asyncio
     async def test_switch_from_plan_to_default_restores_tools(
-        self, base_config: VibeConfig, backend: FakeBackend
+        self, base_config: AuraConfig, backend: FakeBackend
     ) -> None:
         agent = build_test_agent_loop(
             config=base_config, agent_name=BuiltinAgentName.PLAN, backend=backend
@@ -347,7 +347,7 @@ class TestAgentSwitchAgent:
 
     @pytest.mark.asyncio
     async def test_switch_agent_preserves_conversation_history(
-        self, base_config: VibeConfig, backend: FakeBackend
+        self, base_config: AuraConfig, backend: FakeBackend
     ) -> None:
         agent = build_test_agent_loop(
             config=base_config, agent_name=BuiltinAgentName.DEFAULT, backend=backend
@@ -365,7 +365,7 @@ class TestAgentSwitchAgent:
 
     @pytest.mark.asyncio
     async def test_switch_to_same_agent_is_noop(
-        self, base_config: VibeConfig, backend: FakeBackend
+        self, base_config: AuraConfig, backend: FakeBackend
     ) -> None:
         agent = build_test_agent_loop(
             config=base_config, agent_name=BuiltinAgentName.DEFAULT, backend=backend
@@ -568,19 +568,19 @@ class TestAgentLoopInitialization:
     def test_agent_system_prompt_id_is_applied_on_init(
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        project_prompts = tmp_path / "project" / ".vibe" / "prompts"
+        project_prompts = tmp_path / "project" / ".aura" / "prompts"
         project_prompts.mkdir(parents=True)
 
-        global_prompts = tmp_path / "home" / ".vibe" / "prompts"
+        global_prompts = tmp_path / "home" / ".aura" / "prompts"
         global_prompts.mkdir(parents=True)
         custom_prompt_content = "CUSTOM_AGENT_PROMPT_MARKER"
         (global_prompts / "custom_agent.md").write_text(custom_prompt_content)
 
         monkeypatch.setattr(
-            "vibe.core.config.PROMPTS_DIR", ConfigPath(lambda: project_prompts)
+            "aura.core.config.PROMPTS_DIR", ConfigPath(lambda: project_prompts)
         )
         monkeypatch.setattr(
-            "vibe.core.config.GLOBAL_PROMPTS_DIR", GlobalPath(lambda: global_prompts)
+            "aura.core.config.GLOBAL_PROMPTS_DIR", GlobalPath(lambda: global_prompts)
         )
 
         custom_agent = AgentProfile(
@@ -591,8 +591,8 @@ class TestAgentLoopInitialization:
             overrides={"system_prompt_id": "custom_agent"},
         )
         patched_agents = {**BUILTIN_AGENTS, "custom_test_agent": custom_agent}
-        monkeypatch.setattr("vibe.core.agents.models.BUILTIN_AGENTS", patched_agents)
-        monkeypatch.setattr("vibe.core.agents.manager.BUILTIN_AGENTS", patched_agents)
+        monkeypatch.setattr("aura.core.agents.models.BUILTIN_AGENTS", patched_agents)
+        monkeypatch.setattr("aura.core.agents.manager.BUILTIN_AGENTS", patched_agents)
 
         config = build_test_vibe_config(
             include_project_context=False, include_prompt_detail=False

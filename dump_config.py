@@ -1,20 +1,20 @@
 import sys
 import os
 
-# Ensure we can import from the 'mistral-vibe' directory if we are running from root
-sys.path.append(os.path.join(os.getcwd(), 'mistral-vibe'))
+# Ensure we can import from the 'mistral-aura' directory if we are running from root
+sys.path.append(os.path.join(os.getcwd(), 'mistral-aura'))
 
 try:
-    from vibe.core.config import VibeConfig
+    from aura.core.config import AuraConfig
 except ImportError:
-    # If the above fails, try assuming we are inside mistral-vibe wrapper
+    # If the above fails, try assuming we are inside mistral-aura wrapper
     sys.path.append(os.getcwd())
-    from vibe.core.config import VibeConfig
+    from aura.core.config import AuraConfig
 
 def main():
-    print("Loading VibeConfig...")
+    print("Loading AuraConfig...")
     try:
-        config = VibeConfig.load()
+        config = AuraConfig.load()
     except Exception as e:
         print(f"Error loading config: {e}")
         return

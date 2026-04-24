@@ -10,12 +10,12 @@ from tests.conftest import build_test_agent_loop, build_test_vibe_config
 from tests.mock.utils import mock_llm_chunk
 from tests.stubs.fake_backend import FakeBackend
 from tests.stubs.fake_tool import FakeTool
-from vibe.core.agent_loop import AgentLoop
-from vibe.core.agents.models import BuiltinAgentName
-from vibe.core.config import VibeConfig
-from vibe.core.tools.base import BaseToolConfig, ToolPermission
-from vibe.core.tools.builtins.todo import TodoItem
-from vibe.core.types import (
+from aura.core.agent_loop import AgentLoop
+from aura.core.agents.models import BuiltinAgentName
+from aura.core.config import AuraConfig
+from aura.core.tools.base import BaseToolConfig, ToolPermission
+from aura.core.tools.builtins.todo import TodoItem
+from aura.core.types import (
     ApprovalResponse,
     AssistantEvent,
     BaseEvent,
@@ -34,7 +34,7 @@ async def act_and_collect_events(agent_loop: AgentLoop, prompt: str) -> list[Bas
     return [ev async for ev in agent_loop.act(prompt)]
 
 
-def make_config(todo_permission: ToolPermission = ToolPermission.ALWAYS) -> VibeConfig:
+def make_config(todo_permission: ToolPermission = ToolPermission.ALWAYS) -> AuraConfig:
     return build_test_vibe_config(
         auto_compact_threshold=0,
         enabled_tools=["todo"],

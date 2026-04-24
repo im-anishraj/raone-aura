@@ -5,7 +5,7 @@
       "name": "ACP Server",
       "type": "debugpy",
       "request": "launch",
-      "program": "vibe/acp/entrypoint.py",
+      "program": "aura/acp/entrypoint.py",
       "args": [],
       "console": "integratedTerminal",
       "justMyCode": false
@@ -51,7 +51,7 @@
       "name": "CLI",
       "type": "debugpy",
       "request": "launch",
-      "program": "vibe/cli/entrypoint.py",
+      "program": "aura/cli/entrypoint.py",
       "args": [],
       "console": "integratedTerminal",
       "justMyCode": false

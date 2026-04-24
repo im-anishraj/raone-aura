@@ -6,9 +6,9 @@ import pytest
 
 from tests.stubs.fake_backend import FakeBackend
 from tests.stubs.fake_client import FakeClient
-from vibe.acp.acp_agent_loop import VibeAcpAgentLoop
-from vibe.core.agent_loop import AgentLoop
-from vibe.core.types import LLMChunk, LLMMessage, LLMUsage, Role
+from aura.acp.acp_agent_loop import VibeAcpAgentLoop
+from aura.core.agent_loop import AgentLoop
+from aura.core.types import LLMChunk, LLMMessage, LLMUsage, Role
 
 
 @pytest.fixture
@@ -38,5 +38,5 @@ def acp_agent_loop(backend: FakeBackend) -> VibeAcpAgentLoop:
         def __init__(self, *args, **kwargs) -> None:
             super().__init__(*args, **kwargs, backend=backend)
 
-    patch("vibe.acp.acp_agent_loop.AgentLoop", side_effect=PatchedAgent).start()
+    patch("aura.acp.acp_agent_loop.AgentLoop", side_effect=PatchedAgent).start()
     return _create_acp_agent()

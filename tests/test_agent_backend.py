@@ -5,11 +5,11 @@ import pytest
 from tests.conftest import build_test_agent_loop
 from tests.mock.utils import mock_llm_chunk
 from tests.stubs.fake_backend import FakeBackend
-from vibe.core.config import VibeConfig
+from aura.core.config import AuraConfig
 
 
 @pytest.mark.asyncio
-async def test_passes_x_affinity_header_when_asking_an_answer(vibe_config: VibeConfig):
+async def test_passes_x_affinity_header_when_asking_an_answer(vibe_config: AuraConfig):
     backend = FakeBackend([mock_llm_chunk(content="Response")])
     agent = build_test_agent_loop(config=vibe_config, backend=backend)
 
@@ -24,7 +24,7 @@ async def test_passes_x_affinity_header_when_asking_an_answer(vibe_config: VibeC
 
 @pytest.mark.asyncio
 async def test_passes_x_affinity_header_when_asking_an_answer_streaming(
-    vibe_config: VibeConfig,
+    vibe_config: AuraConfig,
 ):
     backend = FakeBackend([mock_llm_chunk(content="Response")])
     agent = build_test_agent_loop(
@@ -41,7 +41,7 @@ async def test_passes_x_affinity_header_when_asking_an_answer_streaming(
 
 
 @pytest.mark.asyncio
-async def test_updates_tokens_stats_based_on_backend_response(vibe_config: VibeConfig):
+async def test_updates_tokens_stats_based_on_backend_response(vibe_config: AuraConfig):
     chunk = mock_llm_chunk(content="Response", prompt_tokens=100, completion_tokens=50)
     backend = FakeBackend([chunk])
     agent = build_test_agent_loop(config=vibe_config, backend=backend)
@@ -53,7 +53,7 @@ async def test_updates_tokens_stats_based_on_backend_response(vibe_config: VibeC
 
 @pytest.mark.asyncio
 async def test_updates_tokens_stats_based_on_backend_response_streaming(
-    vibe_config: VibeConfig,
+    vibe_config: AuraConfig,
 ):
     final_chunk = mock_llm_chunk(
         content="Complete", prompt_tokens=200, completion_tokens=75

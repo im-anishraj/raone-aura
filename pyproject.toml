@@ -1,7 +1,7 @@
 [project]
 name = "raone-aura"
 version = "1.0.0"
-description = "The omnipotent, local-first vibe coding engine for your terminal."
+description = "The omnipotent, local-first aura coding engine for your terminal."
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
@@ -68,12 +68,12 @@ build-backend = "hatchling.build"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-include = ["vibe/"]
+include = ["aura/"]
 
 
 [project.scripts]
-aura = "vibe.cli.entrypoint:main"
-aura-acp = "vibe.acp.entrypoint:main"
+aura = "aura.cli.entrypoint:main"
+aura-acp = "aura.acp.entrypoint:main"
 
 
 [tool.uv]
@@ -104,12 +104,12 @@ build = ["pyinstaller>=6.17.0"]
 pythonVersion = "3.12"
 reportMissingTypeStubs = false
 reportPrivateImportUsage = false
-include = ["vibe/**/*.py", "tests/**/*.py"]
+include = ["aura/**/*.py", "tests/**/*.py"]
 venvPath = "."
 venv = ".venv"
 
 [tool.ruff]
-include = ["vibe/**/*.py", "tests/**/*.py"]
+include = ["aura/**/*.py", "tests/**/*.py"]
 line-length = 88
 target-version = "py312"
 preview = true
@@ -140,13 +140,13 @@ ignore = ["D203", "D205", "D213", "ANN401", "PLR6301"]
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["ANN", "PLR"]
 # Textual parent classes don't use ClassVar, so we can't either without breaking pyright
-"vibe/cli/textual_ui/ansi_markdown.py" = ["RUF012"]
+"aura/cli/textual_ui/ansi_markdown.py" = ["RUF012"]
 
 [tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
 
 [tool.ruff.lint.isort]
-known-first-party = ["vibe"]
+known-first-party = ["aura"]
 force-sort-within-sections = true
 split-on-trailing-comma = true
 combine-as-imports = true

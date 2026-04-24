@@ -6,19 +6,19 @@ import pytest
 
 from tests.conftest import build_test_vibe_config
 from tests.skills.conftest import create_skill
-from vibe.core.config import VibeConfig
-from vibe.core.skills.manager import SkillManager
+from aura.core.config import AuraConfig
+from aura.core.skills.manager import SkillManager
 
 
 @pytest.fixture
-def config() -> VibeConfig:
+def config() -> AuraConfig:
     return build_test_vibe_config(
         system_prompt_id="tests", include_project_context=False
     )
 
 
 @pytest.fixture
-def skill_manager(config: VibeConfig) -> SkillManager:
+def skill_manager(config: AuraConfig) -> SkillManager:
     return SkillManager(lambda: config)
 
 

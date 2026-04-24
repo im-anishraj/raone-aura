@@ -12,8 +12,8 @@ from acp.schema import (
 import pytest
 
 from tests.stubs.fake_backend import FakeBackend
-from vibe.acp.acp_agent_loop import VibeAcpAgentLoop
-from vibe.core.types import Role
+from aura.acp.acp_agent_loop import VibeAcpAgentLoop
+from aura.core.types import Role
 
 
 class TestACPContent:

@@ -5,7 +5,7 @@ import pytest
 from tests.conftest import build_test_agent_loop, build_test_vibe_config
 from tests.mock.utils import mock_llm_chunk
 from tests.stubs.fake_backend import FakeBackend
-from vibe.core.types import (
+from aura.core.types import (
     AssistantEvent,
     CompactEndEvent,
     CompactStartEvent,
