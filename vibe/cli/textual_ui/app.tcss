@@ -233,19 +233,27 @@ Markdown {
     margin-top: 1;
     width: 100%;
     height: auto;
-    color: $ai_crimson;
+    color: $ai_text;
 
     Markdown {
         width: 100%;
         height: auto;
         padding: 0;
         margin: 0;
-        color: $ai_crimson;
+        color: $ai_text;
 
         & > *:last-child {
             margin-bottom: 0;
         }
     }
+}
+
+.assistant-message-label {
+    width: auto;
+    height: auto;
+    color: $ai_crimson;
+    text-style: bold;
+    margin-bottom: 0;
 }
 
 .reasoning-message {

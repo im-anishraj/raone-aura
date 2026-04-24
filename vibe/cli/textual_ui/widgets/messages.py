@@ -114,10 +114,10 @@ class AssistantMessage(StreamingMessageBase):
         self.add_class("assistant-message")
 
     def compose(self) -> ComposeResult:
+        yield NonSelectableStatic("RaOne:", classes="assistant-message-label")
         if self._content:
             self._content_initialized = True
-        display = f"**RaOne:** {self._content}" if self._content else "**RaOne:**"
-        markdown = Markdown(display)
+        markdown = Markdown(self._content)
         self._markdown = markdown
         yield markdown
 
