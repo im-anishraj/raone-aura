@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from typing import Any
 
 from textual.app import ComposeResult
@@ -8,49 +9,30 @@ from textual.widgets import Static
 
 from vibe.cli.textual_ui.widgets.braille_renderer import render_braille
 
-WIDTH = 22
-HEIGHT = 12
-STARTING_DOTS = [
-    set[int](),
-    {8, 9, 10, 11, 12, 13},
-    {8, 9, 14, 7},
-    {6, 8, 9, 10, 15},
-    {6, 9, 10, 11, 15},
-    {6, 9, 10, 11, 12, 13, 14, 15},
-    {6, 9, 10, 11, 12, 13, 14, 15},
-    {6, 9, 10, 11, 15},
-    {6, 8, 9, 10, 15},
-    {8, 9, 14, 7},
-    {8, 9, 10, 11, 12, 13},
-    set[int](),
-]
-TRANSITIONS = [
-    {"remove": {2j + 7, 2j + 8, 3j + 8, 3j + 9, 4j + 9, 4j + 10, 4j + 11, 5j + 9, 5j + 12, 4j + 15, 5j + 13, 5j + 14, 5j + 15, 7j + 10, 7j + 11, 8j + 10, 6j + 9, 9j + 9, 6j + 12, 10j + 9}, "add": {7j + 13, 7j + 14, 8j + 14, 1j + 10, 1j + 11, 2j + 10, 2j + 11, 7j + 7, 7j + 8, 8j + 7}},
-    {"remove": {2j + 7, 2j + 8, 2j + 9, 4j + 9, 4j + 10, 4j + 15, 6j + 12, 6j + 13, 6j + 14, 6j + 15, 8j + 8, 8j + 9, 8j + 10, 10j + 9, 1j + 9, 3j + 8, 3j + 9, 3j + 10, 5j + 12, 5j + 13, 5j + 14, 7j + 9, 5j + 15, 7j + 10, 9j + 7, 9j + 8, 7j + 15, 9j + 9}, "add": {6j + 12, 1j + 10, 1j + 11, 1j + 12, 2j + 10, 2j + 11, 2j + 12, 5j + 9, 3j + 11, 4j + 10, 4j + 11, 6j + 6, 6j + 7, 6j + 8, 6j + 9, 7j + 6, 7j + 7, 7j + 8, 8j + 7, 7j + 11, 7j + 12, 7j + 13, 7j + 14, 8j + 12, 8j + 13, 8j + 14, 5j + 12, 9j + 13, 9j + 14, 7j + 10}},
-    {"remove": {1j + 9, 2j + 7, 2j + 8, 2j + 9, 3j + 8, 3j + 9, 3j + 10, 7j + 11, 4j + 9, 4j + 10, 4j + 11, 5j + 9, 4j + 15, 5j + 12, 5j + 13, 6j + 12, 6j + 13, 6j + 14, 6j + 15, 8j + 8, 8j + 9, 8j + 10, 5j + 14, 7j + 9, 10j + 9, 7j + 10, 9j + 7, 9j + 8, 7j + 15, 9j + 9, 5j + 15, 6j + 9}, "add": {2j + 12, 2j + 13, 2j + 14, 4j + 6, 4j + 11, 6j + 6, 4j + 12, 6j + 7, 6j + 8, 6j + 9, 8j + 11, 8j + 12, 8j + 13, 10j + 12, 1j + 12, 3j + 11, 3j + 12, 3j + 13, 5j + 8, 5j + 6, 5j + 7, 5j + 9, 7j + 6, 7j + 11, 7j + 12, 9j + 12, 9j + 13, 9j + 14}},
-    {"remove": {2j + 7, 2j + 8, 2j + 9, 4j + 9, 4j + 10, 4j + 15, 6j + 12, 6j + 13, 6j + 14, 6j + 15, 8j + 8, 8j + 9, 8j + 10, 10j + 9, 1j + 9, 3j + 8, 3j + 9, 3j + 10, 5j + 12, 5j + 13, 5j + 14, 7j + 9, 5j + 15, 7j + 10, 9j + 7, 9j + 8, 7j + 15, 9j + 9}, "add": {5j + 6, 3j + 7, 4j + 6, 4j + 7, 2j + 13, 2j + 14, 4j + 8, 3j + 12, 4j + 12, 4j + 13, 4j + 14, 3j + 13, 3j + 14, 5j + 8, 5j + 9, 5j + 7, 7j + 11, 6j + 9, 5j + 12, 8j + 11, 6j + 12, 9j + 10, 9j + 11, 9j + 12, 10j + 10, 10j + 11, 10j + 12, 7j + 10, 4j + 10, 4j + 11}},
-    {"remove": {1j + 9, 2j + 9, 3j + 10, 4j + 10, 4j + 11, 5j + 9, 7j + 10, 6j + 9, 5j + 12, 7j + 9, 6j + 12, 6j + 14, 6j + 15, 8j + 8, 8j + 9, 9j + 7, 9j + 8, 7j + 15, 6j + 13, 7j + 11}, "add": {9j + 10, 9j + 11, 10j + 10, 10j + 11, 3j + 7, 4j + 7, 4j + 8, 3j + 14, 4j + 13, 4j + 14}},
-    {"remove": set[int](), "add": {7j + 11, 6j + 9, 4j + 10, 4j + 11, 5j + 9, 5j + 12, 6j + 12, 7j + 10}},
-]
-# cf render_braille() docstring for coordinates convention
-
-
 class PetitChat(Static):
+    """
+    A premium 3D animated "Cybernetic Core" (double rotating cube / tesseract) 
+    rendered using braille dots.
+    """
     def __init__(self, animate: bool = True, **kwargs: Any) -> None:
         super().__init__(**kwargs, classes="banner-chat")
-        self._dots = {1j * y + x for y, row in enumerate(STARTING_DOTS) for x in row}
         self._transition_index = 0
         self._do_animate = animate
         self._freeze_requested = False
         self._timer: Timer | None = None
+        self.WIDTH = 34
+        self.HEIGHT = 20
 
     def compose(self) -> ComposeResult:
-        yield Static(render_braille(self._dots, WIDTH, HEIGHT), classes="petit-chat")
+        yield Static(
+            render_braille(self._generate_dots(0), self.WIDTH, self.HEIGHT), 
+            classes="petit-chat"
+        )
 
     def on_mount(self) -> None:
         self._inner = self.query_one(".petit-chat", Static)
         if self._do_animate:
-            self._timer = self.set_interval(0.16, self._apply_next_transition)
+            self._timer = self.set_interval(0.08, self._apply_next_transition)
 
     def freeze_animation(self) -> None:
         self._freeze_requested = True
@@ -62,8 +44,83 @@ class PetitChat(Static):
             self._timer = None
             return
 
-        transition = TRANSITIONS[self._transition_index]
-        self._dots -= transition["remove"]
-        self._dots |= transition["add"]
-        self._transition_index = (self._transition_index + 1) % len(TRANSITIONS)
-        self._inner.update(render_braille(self._dots, WIDTH, HEIGHT))
+        self._transition_index += 1
+        dots = self._generate_dots(self._transition_index)
+        self._inner.update(render_braille(dots, self.WIDTH, self.HEIGHT))
+        
+    def _generate_dots(self, t: int) -> set[complex]:
+        dots = set()
+        cx, cy = self.WIDTH / 2 - 0.5, self.HEIGHT / 2 - 0.5
+        
+        pulse = math.sin(t * 0.05) * 0.1 + 1.0
+        
+        rx1, ry1, rz1 = t * 0.03, t * 0.05, t * 0.02
+        rx2, ry2, rz2 = -t * 0.04, -t * 0.03, t * 0.06
+        
+        v_base = [
+            (-1, -1, -1), (1, -1, -1), (1, 1, -1), (-1, 1, -1),
+            (-1, -1, 1), (1, -1, 1), (1, 1, 1), (-1, 1, 1)
+        ]
+        
+        edges = [
+            (0,1), (1,2), (2,3), (3,0),
+            (4,5), (5,6), (6,7), (7,4),
+            (0,4), (1,5), (2,6), (3,7)
+        ]
+        
+        projected = []
+        
+        for x, y, z in v_base:
+            px, py, pz = self._rotate_3d(x, y, z, rx1, ry1, rz1)
+            scale = 8 * pulse
+            projected.append((cx + px * scale, cy + py * scale))
+            
+        for x, y, z in v_base:
+            px, py, pz = self._rotate_3d(x, y, z, rx2, ry2, rz2)
+            scale = 3.5 * (2.0 - pulse)
+            projected.append((cx + px * scale, cy + py * scale))
+            
+        for e1, e2 in edges:
+            dots.update(self._bresenham(projected[e1][0], projected[e1][1], projected[e2][0], projected[e2][1]))
+            
+        for e1, e2 in edges:
+            o = 8
+            dots.update(self._bresenham(projected[e1+o][0], projected[e1+o][1], projected[e2+o][0], projected[e2+o][1]))
+            
+        for i in range(8):
+            dots.update(self._bresenham(projected[i][0], projected[i][1], projected[i+8][0], projected[i+8][1]))
+            
+        return {d for d in dots if 0 <= d.real < self.WIDTH and 0 <= d.imag < self.HEIGHT}
+        
+    def _rotate_3d(self, x: float, y: float, z: float, rx: float, ry: float, rz: float) -> tuple[float, float, float]:
+        y1 = y * math.cos(rx) - z * math.sin(rx)
+        z1 = y * math.sin(rx) + z * math.cos(rx)
+        
+        x2 = x * math.cos(ry) + z1 * math.sin(ry)
+        z2 = -x * math.sin(ry) + z1 * math.cos(ry)
+        
+        x3 = x2 * math.cos(rz) - y1 * math.sin(rz)
+        y3 = x2 * math.sin(rz) + y1 * math.cos(rz)
+        
+        return x3, y3, z2
+        
+    def _bresenham(self, x0: float, y0: float, x1: float, y1: float) -> set[complex]:
+        points = set()
+        x0, y0, x1, y1 = int(round(x0)), int(round(y0)), int(round(x1)), int(round(y1))
+        dx = abs(x1 - x0)
+        dy = abs(y1 - y0)
+        sx = 1 if x0 < x1 else -1
+        sy = 1 if y0 < y1 else -1
+        err = dx - dy
+        while True:
+            points.add(x0 + y0 * 1j)
+            if x0 == x1 and y0 == y1:
+                break
+            e2 = 2 * err
+            if e2 > -dy:
+                err -= dy
+                x0 += sx
+            if e2 < dx:
+                err += dx
+                y0 += sy
+        return points
