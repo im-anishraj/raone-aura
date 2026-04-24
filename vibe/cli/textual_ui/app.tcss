@@ -216,22 +216,13 @@ Markdown {
     height: auto;
     color: $user_blue;
     text-style: bold;
-    padding: 0 0 0 0;
-    margin-bottom: 0;
-}
-
-.user-message-prompt {
-    width: auto;
-    height: 100%;
-    text-style: bold;
+    margin-right: 1;
 }
 
 .user-message-content {
     width: 1fr;
     height: auto;
     text-style: bold;
-    padding-left: 2;
-    border-left: heavy $user_blue;
     color: $user_text;
 }
 
@@ -247,7 +238,7 @@ Markdown {
     Markdown {
         width: 100%;
         height: auto;
-        padding: 0 0 0 2;
+        padding: 0;
         margin: 0;
         color: $ai_text;
 
@@ -257,13 +248,16 @@ Markdown {
     }
 }
 
+.assistant-message-header {
+    width: 100%;
+    height: auto;
+}
+
 .assistant-message-label {
     width: auto;
     height: auto;
     color: $ai_crimson;
     text-style: bold;
-    padding: 0;
-    margin-bottom: 0;
 }
 
 .reasoning-message {
