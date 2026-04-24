@@ -42,7 +42,8 @@ class UserMessage(Static):
         self._pending = pending
 
     def compose(self) -> ComposeResult:
-        with Horizontal(classes="user-message-container"):
+        with Vertical(classes="user-message-container"):
+            yield NonSelectableStatic("You", classes="user-message-label")
             yield NoMarkupStatic(self._content, classes="user-message-content")
             if self._pending:
                 self.add_class("pending")
@@ -113,6 +114,7 @@ class AssistantMessage(StreamingMessageBase):
         self.add_class("assistant-message")
 
     def compose(self) -> ComposeResult:
+        yield NonSelectableStatic("RaOne", classes="assistant-message-label")
         if self._content:
             self._content_initialized = True
         markdown = Markdown(self._content)

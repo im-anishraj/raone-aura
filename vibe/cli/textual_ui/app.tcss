@@ -1,4 +1,18 @@
-$mistral_orange: #FFCC00;
+/* ═══════════════════════════════════════════════════════════
+   RaOne Aura — Premium Terminal Theme
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Core Brand Palette ── */
+$user_blue: #4EA1FF;          /* Clean bright blue — user identity */
+$user_text: #B8D4F0;          /* Soft blue-white — user message readability */
+$ai_crimson: #FF6B6B;         /* Premium soft crimson — RaOne identity */
+$ai_text: #E8C4C4;            /* Warm rose-tinted white — AI message readability */
+$menu_yellow: #FFD700;        /* Rich gold — menus, headings, navigation */
+
+/* ── Accent & UI Surface Tones ── */
+$surface_dim: #1A1A2E;        /* Deep navy-black surface */
+$border_subtle: #2A2A3E;      /* Subtle border tone */
+$text_muted: #6B7280;         /* Muted helper text */
 
 * {
     scrollbar-color: ansi_black;
@@ -120,7 +134,7 @@ TextArea > .text-area--cursor {
 #prompt {
     width: auto;
     background: transparent;
-    color: $mistral_orange;
+    color: $user_blue;
     text-style: bold;
     padding: 0 1 0 0;
 }
@@ -184,7 +198,7 @@ Markdown {
     height: auto;
 
     &.pending {
-        .user-message-prompt,
+        .user-message-label,
         .user-message-content {
             opacity: 0.7;
             text-style: italic;
@@ -197,6 +211,15 @@ Markdown {
     height: auto;
 }
 
+.user-message-label {
+    width: auto;
+    height: auto;
+    color: $user_blue;
+    text-style: bold;
+    padding: 0 0 0 0;
+    margin-bottom: 0;
+}
+
 .user-message-prompt {
     width: auto;
     height: 100%;
@@ -207,27 +230,40 @@ Markdown {
     width: 1fr;
     height: auto;
     text-style: bold;
-    padding-left: 1;
-    border-left: heavy $mistral_orange;
-    color: $mistral_orange;
+    padding-left: 2;
+    border-left: heavy $user_blue;
+    color: $user_text;
 }
+
+/* ── AI / RaOne Messages ── */
 
 .assistant-message {
     layout: stream;
     margin-top: 1;
     width: 100%;
     height: auto;
+    color: $ai_text;
 
     Markdown {
         width: 100%;
         height: auto;
-        padding: 0;
+        padding: 0 0 0 2;
         margin: 0;
+        color: $ai_text;
 
         & > *:last-child {
             margin-bottom: 0;
         }
     }
+}
+
+.assistant-message-label {
+    width: auto;
+    height: auto;
+    color: $ai_crimson;
+    text-style: bold;
+    padding: 0;
+    margin-bottom: 0;
 }
 
 .reasoning-message {
@@ -631,7 +667,7 @@ StatusMessage {
 .history-load-more-button {
     background: transparent;
     border: none;
-    color: ansi_yellow;
+    color: $menu_yellow;
     text-style: bold;
     pointer: pointer;
     padding: 1;
@@ -658,7 +694,7 @@ StatusMessage {
 .settings-title {
     height: auto;
     text-style: bold;
-    color: ansi_blue;
+    color: $menu_yellow;
 }
 
 .settings-option {
@@ -667,7 +703,7 @@ StatusMessage {
 }
 
 .settings-cursor-selected {
-    color: ansi_blue;
+    color: $menu_yellow;
     text-style: bold;
 }
 
@@ -690,12 +726,12 @@ StatusMessage {
 }
 
 .settings-value-cycle-selected {
-    color: ansi_blue;
+    color: $menu_yellow;
     text-style: bold;
 }
 
 .settings-value-cycle-unselected {
-    color: ansi_blue;
+    color: $menu_yellow;
 }
 
 .settings-help {
@@ -733,7 +769,7 @@ StatusMessage {
 .approval-title {
     height: auto;
     text-style: bold;
-    color: ansi_yellow;
+    color: $menu_yellow;
 }
 
 .approval-tool-info-container {
@@ -813,14 +849,14 @@ StatusMessage {
 
 .question-tabs {
     height: auto;
-    color: ansi_blue;
+    color: $menu_yellow;
     margin-bottom: 1;
 }
 
 .question-title {
     height: auto;
     text-style: bold;
-    color: ansi_blue;
+    color: $menu_yellow;
     margin-bottom: 1;
 }
 
@@ -830,7 +866,7 @@ StatusMessage {
 }
 
 .question-option-selected {
-    color: ansi_blue;
+    color: $menu_yellow;
     text-style: bold;
 }
 
@@ -916,7 +952,7 @@ Banner {
 }
 
 #banner-brand {
-    color: ansi_yellow;
+    color: $menu_yellow;
     text-style: bold;
     width: auto;
 }
@@ -964,7 +1000,7 @@ Banner {
 
 
 .whats-new-message {
-    border-left: heavy $mistral_orange;
+    border-left: heavy $menu_yellow;
     margin-bottom: 1;
 
     Markdown {
@@ -993,9 +1029,19 @@ Banner {
     link-style: none;
     link-background-hover: transparent;
     link-style-hover: underline;
-    link-color-hover: $mistral_orange;
+    link-color-hover: $menu_yellow;
 }
 
 .whats-new-message.after-history {
     margin-top: 1;
+}
+
+MarkdownH1,
+MarkdownH2,
+MarkdownH3,
+MarkdownH4,
+MarkdownH5,
+MarkdownH6 {
+    color: $menu_yellow;
+    text-style: bold;
 }
