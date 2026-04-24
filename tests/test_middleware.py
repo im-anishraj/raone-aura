@@ -2,20 +2,20 @@ from __future__ import annotations
 
 import pytest
 
-from vibe.core.agents.models import BUILTIN_AGENTS, AgentProfile, BuiltinAgentName
-from vibe.core.config import VibeConfig
-from vibe.core.middleware import (
+from aura.core.agents.models import BUILTIN_AGENTS, AgentProfile, BuiltinAgentName
+from aura.core.config import AuraConfig
+from aura.core.middleware import (
     PLAN_AGENT_REMINDER,
     ConversationContext,
     MiddlewareAction,
     MiddlewarePipeline,
     PlanAgentMiddleware,
 )
-from vibe.core.types import AgentStats
+from aura.core.types import AgentStats
 
 
 @pytest.fixture
-def ctx(vibe_config: VibeConfig) -> ConversationContext:
+def ctx(vibe_config: AuraConfig) -> ConversationContext:
     return ConversationContext(messages=[], stats=AgentStats(), config=vibe_config)
 
 

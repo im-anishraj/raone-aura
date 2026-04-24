@@ -13,14 +13,14 @@ from tests.update_notifier.adapters.fake_update_cache_repository import (
     FakeUpdateCacheRepository,
 )
 from tests.update_notifier.adapters.fake_update_gateway import FakeUpdateGateway
-from vibe.cli.plan_offer.ports.whoami_gateway import WhoAmIResponse
-from vibe.cli.textual_ui.app import CORE_VERSION, VibeApp
-from vibe.core.agent_loop import AgentLoop
-from vibe.core.agents.models import BuiltinAgentName
-from vibe.core.config import SessionLoggingConfig, VibeConfig
-from vibe.core.llm.types import BackendLike
-from vibe.core.paths import global_paths
-from vibe.core.paths.config_paths import unlock_config_paths
+from aura.cli.plan_offer.ports.whoami_gateway import WhoAmIResponse
+from aura.cli.textual_ui.app import CORE_VERSION, AuraTerminal
+from aura.core.agent_loop import AgentLoop
+from aura.core.agents.models import BuiltinAgentName
+from aura.core.config import SessionLoggingConfig, AuraConfig
+from aura.core.llm.types import BackendLike
+from aura.core.paths import global_paths
+from aura.core.paths.config_paths import unlock_config_paths
 
 
 def get_base_config() -> dict[str, Any]:
@@ -36,7 +36,7 @@ def get_base_config() -> dict[str, Any]:
         ],
         "models": [
             {
-                "name": "mistral-vibe-cli-latest",
+                "name": "mistral-aura-cli-latest",
                 "provider": "mistral",
                 "alias": "devstral-latest",
             }
@@ -58,13 +58,13 @@ def tmp_working_directory(
 def config_dir(
     monkeypatch: pytest.MonkeyPatch, tmp_path_factory: pytest.TempPathFactory
 ) -> Path:
-    tmp_path = tmp_path_factory.mktemp("vibe")
-    config_dir = tmp_path / ".vibe"
+    tmp_path = tmp_path_factory.mktemp("aura")
+    config_dir = tmp_path / ".aura"
     config_dir.mkdir(parents=True, exist_ok=True)
     config_file = config_dir / "config.toml"
     config_file.write_text(tomli_w.dumps(get_base_config()), encoding="utf-8")
 
-    monkeypatch.setattr(global_paths, "_DEFAULT_VIBE_HOME", config_dir)
+    monkeypatch.setattr(global_paths, "_DEFAULT_AURA_HOME", config_dir)
     return config_dir
 
 
@@ -91,11 +91,11 @@ def _mock_platform(monkeypatch: pytest.MonkeyPatch) -> None:
 
 @pytest.fixture(autouse=True)
 def _mock_update_commands(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr("vibe.cli.update_notifier.update.UPDATE_COMMANDS", ["true"])
+    monkeypatch.setattr("aura.cli.update_notifier.update.UPDATE_COMMANDS", ["true"])
 
 
 @pytest.fixture
-def vibe_app() -> VibeApp:
+def vibe_app() -> AuraTerminal:
     return build_test_vibe_app()
 
 
@@ -105,11 +105,11 @@ def agent_loop() -> AgentLoop:
 
 
 @pytest.fixture
-def vibe_config() -> VibeConfig:
+def vibe_config() -> AuraConfig:
     return build_test_vibe_config()
 
 
-def build_test_vibe_config(**kwargs) -> VibeConfig:
+def build_test_vibe_config(**kwargs) -> AuraConfig:
     session_logging = kwargs.pop("session_logging", None)
     resolved_session_logging = (
         SessionLoggingConfig(enabled=False)
@@ -120,7 +120,7 @@ def build_test_vibe_config(**kwargs) -> VibeConfig:
     resolved_enable_update_checks = (
         False if enable_update_checks is None else enable_update_checks
     )
-    return VibeConfig(
+    return AuraConfig(
         session_logging=resolved_session_logging,
         enable_update_checks=resolved_enable_update_checks,
         **kwargs,
@@ -129,7 +129,7 @@ def build_test_vibe_config(**kwargs) -> VibeConfig:
 
 def build_test_agent_loop(
     *,
-    config: VibeConfig | None = None,
+    config: AuraConfig | None = None,
     agent_name: str = BuiltinAgentName.DEFAULT,
     backend: BackendLike | None = None,
     enable_streaming: bool = False,
@@ -148,8 +148,8 @@ def build_test_agent_loop(
 
 
 def build_test_vibe_app(
-    *, config: VibeConfig | None = None, agent_loop: AgentLoop | None = None, **kwargs
-) -> VibeApp:
+    *, config: AuraConfig | None = None, agent_loop: AgentLoop | None = None, **kwargs
+) -> AuraTerminal:
     app_config = config or build_test_vibe_config()
 
     resolved_agent_loop = agent_loop or build_test_agent_loop(config=app_config)
@@ -181,7 +181,7 @@ def build_test_vibe_app(
         CORE_VERSION if current_version is None else current_version
     )
 
-    return VibeApp(
+    return AuraTerminal(
         agent_loop=resolved_agent_loop,
         current_version=resolved_current_version,
         update_notifier=resolved_update_notifier,

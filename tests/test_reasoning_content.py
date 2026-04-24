@@ -10,14 +10,14 @@ import respx
 from tests.conftest import build_test_agent_loop, build_test_vibe_config
 from tests.mock.utils import mock_llm_chunk
 from tests.stubs.fake_backend import FakeBackend
-from vibe.core.config import ModelConfig, ProviderConfig, VibeConfig
-from vibe.core.llm.backend.generic import GenericBackend, OpenAIAdapter
-from vibe.core.llm.backend.mistral import MistralBackend, MistralMapper, ParsedContent
-from vibe.core.llm.format import APIToolFormatHandler
-from vibe.core.types import AssistantEvent, LLMMessage, ReasoningEvent, Role
+from aura.core.config import ModelConfig, ProviderConfig, AuraConfig
+from aura.core.llm.backend.generic import GenericBackend, OpenAIAdapter
+from aura.core.llm.backend.mistral import MistralBackend, MistralMapper, ParsedContent
+from aura.core.llm.format import APIToolFormatHandler
+from aura.core.types import AssistantEvent, LLMMessage, ReasoningEvent, Role
 
 
-def make_config() -> VibeConfig:
+def make_config() -> AuraConfig:
     return build_test_vibe_config(
         auto_compact_threshold=0,
         system_prompt_id="tests",

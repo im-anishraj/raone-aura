@@ -4,8 +4,8 @@ import httpx
 import pytest
 import respx
 
-from vibe.cli.plan_offer.adapters.http_whoami_gateway import HttpWhoAmIGateway
-from vibe.cli.plan_offer.ports.whoami_gateway import (
+from aura.cli.plan_offer.adapters.http_whoami_gateway import HttpWhoAmIGateway
+from aura.cli.plan_offer.ports.whoami_gateway import (
     WhoAmIGatewayError,
     WhoAmIGatewayUnauthorized,
     WhoAmIResponse,
@@ -14,7 +14,7 @@ from vibe.cli.plan_offer.ports.whoami_gateway import (
 
 @pytest.mark.asyncio
 async def test_returns_plan_flags(respx_mock: respx.MockRouter) -> None:
-    route = respx_mock.get("http://test/api/vibe/whoami").mock(
+    route = respx_mock.get("http://test/api/aura/whoami").mock(
         return_value=httpx.Response(
             200,
             json={
@@ -41,7 +41,7 @@ async def test_returns_plan_flags(respx_mock: respx.MockRouter) -> None:
 async def test_raises_on_unauthorized(
     respx_mock: respx.MockRouter, status_code: int
 ) -> None:
-    respx_mock.get("http://test/api/vibe/whoami").mock(
+    respx_mock.get("http://test/api/aura/whoami").mock(
         return_value=httpx.Response(status_code, json={"error": "unauthorized"})
     )
 
@@ -53,7 +53,7 @@ async def test_raises_on_unauthorized(
 
 @pytest.mark.asyncio
 async def test_raises_on_non_success(respx_mock: respx.MockRouter) -> None:
-    respx_mock.get("http://test/api/vibe/whoami").mock(
+    respx_mock.get("http://test/api/aura/whoami").mock(
         return_value=httpx.Response(500, json={"error": "boom"})
     )
 
@@ -67,7 +67,7 @@ async def test_raises_on_non_success(respx_mock: respx.MockRouter) -> None:
 async def test_incomplete_payload_defaults_missing_flags_to_false(
     respx_mock: respx.MockRouter,
 ) -> None:
-    respx_mock.get("http://test/api/vibe/whoami").mock(
+    respx_mock.get("http://test/api/aura/whoami").mock(
         return_value=httpx.Response(200, json={"is_pro_plan": True})
     )
 
@@ -80,7 +80,7 @@ async def test_incomplete_payload_defaults_missing_flags_to_false(
 
 @pytest.mark.asyncio
 async def test_wraps_request_error(respx_mock: respx.MockRouter) -> None:
-    respx_mock.get("http://test/api/vibe/whoami").mock(
+    respx_mock.get("http://test/api/aura/whoami").mock(
         side_effect=httpx.ConnectError("boom")
     )
 
@@ -92,7 +92,7 @@ async def test_wraps_request_error(respx_mock: respx.MockRouter) -> None:
 
 @pytest.mark.asyncio
 async def test_parses_boolean_strings(respx_mock: respx.MockRouter) -> None:
-    respx_mock.get("http://test/api/vibe/whoami").mock(
+    respx_mock.get("http://test/api/aura/whoami").mock(
         return_value=httpx.Response(
             200,
             json={
@@ -112,7 +112,7 @@ async def test_parses_boolean_strings(respx_mock: respx.MockRouter) -> None:
 
 @pytest.mark.asyncio
 async def test_raises_on_invalid_boolean_string(respx_mock: respx.MockRouter) -> None:
-    respx_mock.get("http://test/api/vibe/whoami").mock(
+    respx_mock.get("http://test/api/aura/whoami").mock(
         return_value=httpx.Response(200, json={"is_pro_plan": "yes"})
     )
 

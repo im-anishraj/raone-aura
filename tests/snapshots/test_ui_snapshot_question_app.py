@@ -5,8 +5,8 @@ from textual.containers import Container
 from textual.pilot import Pilot
 
 from tests.snapshots.snap_compare import SnapCompare
-from vibe.cli.textual_ui.widgets.question_app import QuestionApp
-from vibe.core.tools.builtins.ask_user_question import (
+from aura.cli.textual_ui.widgets.question_app import QuestionApp
+from aura.core.tools.builtins.ask_user_question import (
     AskUserQuestionArgs,
     Choice,
     Question,
@@ -64,7 +64,7 @@ def multi_select_args() -> AskUserQuestionArgs:
 
 
 class QuestionAppTestApp(App):
-    CSS_PATH = "../../vibe/cli/textual_ui/app.tcss"
+    CSS_PATH = "../../aura/cli/textual_ui/app.tcss"
 
     def __init__(self, args: AskUserQuestionArgs):
         super().__init__()

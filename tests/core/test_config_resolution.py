@@ -4,9 +4,9 @@ from pathlib import Path
 
 import pytest
 
-from vibe.core.paths.config_paths import CONFIG_FILE
-from vibe.core.paths.global_paths import GLOBAL_CONFIG_FILE, VIBE_HOME
-from vibe.core.trusted_folders import trusted_folders_manager
+from aura.core.paths.config_paths import CONFIG_FILE
+from aura.core.paths.global_paths import GLOBAL_CONFIG_FILE, AURA_HOME
+from aura.core.trusted_folders import trusted_folders_manager
 
 
 class TestResolveConfigFile:
@@ -14,7 +14,7 @@ class TestResolveConfigFile:
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     ) -> None:
         monkeypatch.chdir(tmp_path)
-        local_config_dir = tmp_path / ".vibe"
+        local_config_dir = tmp_path / ".aura"
         local_config_dir.mkdir()
         local_config = local_config_dir / "config.toml"
         local_config.write_text('active_model = "test"', encoding="utf-8")
@@ -29,7 +29,7 @@ class TestResolveConfigFile:
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     ) -> None:
         monkeypatch.chdir(tmp_path)
-        local_config_dir = tmp_path / ".vibe"
+        local_config_dir = tmp_path / ".aura"
         local_config_dir.mkdir()
         local_config = local_config_dir / "config.toml"
         local_config.write_text('active_model = "test"', encoding="utf-8")
@@ -41,13 +41,13 @@ class TestResolveConfigFile:
     ) -> None:
         monkeypatch.chdir(tmp_path)
         # Ensure no local config exists
-        assert not (tmp_path / ".vibe" / "config.toml").exists()
+        assert not (tmp_path / ".aura" / "config.toml").exists()
 
         assert CONFIG_FILE.path == GLOBAL_CONFIG_FILE.path
 
-    def test_respects_vibe_home_env_var(
+    def test_respects_aura_home_env_var(
         self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     ) -> None:
-        assert VIBE_HOME.path != tmp_path
-        monkeypatch.setenv("VIBE_HOME", str(tmp_path))
-        assert VIBE_HOME.path == tmp_path
+        assert AURA_HOME.path != tmp_path
+        monkeypatch.setenv("AURA_HOME", str(tmp_path))
+        assert AURA_HOME.path == tmp_path

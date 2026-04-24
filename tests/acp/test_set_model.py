@@ -7,10 +7,10 @@ import pytest
 
 from tests.acp.conftest import _create_acp_agent
 from tests.conftest import build_test_vibe_config
-from vibe.acp.acp_agent_loop import VibeAcpAgentLoop
-from vibe.core.agent_loop import AgentLoop
-from vibe.core.config import ModelConfig, VibeConfig
-from vibe.core.types import LLMMessage, Role
+from aura.acp.acp_agent_loop import VibeAcpAgentLoop
+from aura.core.agent_loop import AgentLoop
+from aura.core.config import ModelConfig, AuraConfig
+from aura.core.types import LLMMessage, Role
 
 
 @pytest.fixture
@@ -35,7 +35,7 @@ def acp_agent_loop(backend) -> VibeAcpAgentLoop:
         ],
     )
 
-    VibeConfig.dump_config(config.model_dump())
+    AuraConfig.dump_config(config.model_dump())
 
     class PatchedAgentLoop(AgentLoop):
         def __init__(self, *args, **kwargs) -> None:
@@ -49,7 +49,7 @@ def acp_agent_loop(backend) -> VibeAcpAgentLoop:
             except ValueError:
                 pass
 
-    patch("vibe.acp.acp_agent_loop.AgentLoop", side_effect=PatchedAgentLoop).start()
+    patch("aura.acp.acp_agent_loop.AgentLoop", side_effect=PatchedAgentLoop).start()
 
     return _create_acp_agent()
 
@@ -126,7 +126,7 @@ class TestACPSetModel:
         )
         session_id = session_response.session_id
 
-        with patch("vibe.acp.acp_agent_loop.VibeConfig.save_updates") as mock_save:
+        with patch("aura.acp.acp_agent_loop.AuraConfig.save_updates") as mock_save:
             response = await acp_agent_loop.set_session_model(
                 session_id=session_id, model_id="devstral-small"
             )
@@ -143,7 +143,7 @@ class TestACPSetModel:
         )
         session_id = session_response.session_id
 
-        with patch("vibe.acp.acp_agent_loop.VibeConfig.save_updates") as mock_save:
+        with patch("aura.acp.acp_agent_loop.AuraConfig.save_updates") as mock_save:
             response = await acp_agent_loop.set_session_model(
                 session_id=session_id, model_id="non-existent-model"
             )

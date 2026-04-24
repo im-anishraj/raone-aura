@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, mock_open, patch
 import pytest
 from textual.app import App
 
-from vibe.cli.clipboard import _copy_osc52, copy_selection_to_clipboard
+from aura.cli.clipboard import _copy_osc52, copy_selection_to_clipboard
 
 
 class MockWidget:
@@ -78,7 +78,7 @@ def test_copy_selection_to_clipboard_no_notification(
     mock_app.notify.assert_not_called()
 
 
-@patch("vibe.cli.clipboard._copy_osc52")
+@patch("aura.cli.clipboard._copy_osc52")
 def test_copy_selection_to_clipboard_success(
     mock_copy_osc52: MagicMock, mock_app: MagicMock
 ) -> None:
@@ -98,7 +98,7 @@ def test_copy_selection_to_clipboard_success(
     )
 
 
-@patch("vibe.cli.clipboard._copy_osc52")
+@patch("aura.cli.clipboard._copy_osc52")
 def test_copy_selection_to_clipboard_failure(
     mock_copy_osc52: MagicMock, mock_app: MagicMock
 ) -> None:
@@ -128,7 +128,7 @@ def test_copy_selection_to_clipboard_multiple_widgets(mock_app: MagicMock) -> No
     widget3 = MockWidget(text_selection=None)
     mock_app.query.return_value = [widget1, widget2, widget3]
 
-    with patch("vibe.cli.clipboard._copy_osc52") as mock_copy_osc52:
+    with patch("aura.cli.clipboard._copy_osc52") as mock_copy_osc52:
         copy_selection_to_clipboard(mock_app)
 
         mock_copy_osc52.assert_called_once_with("first selection\nsecond selection")
@@ -147,7 +147,7 @@ def test_copy_selection_to_clipboard_preview_shortening(mock_app: MagicMock) -> 
     )
     mock_app.query.return_value = [widget]
 
-    with patch("vibe.cli.clipboard._copy_osc52") as mock_copy_osc52:
+    with patch("aura.cli.clipboard._copy_osc52") as mock_copy_osc52:
         copy_selection_to_clipboard(mock_app)
 
         mock_copy_osc52.assert_called_once_with(long_text)

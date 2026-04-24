@@ -6,8 +6,8 @@ from pydantic import BaseModel
 import pytest
 
 from tests.mock.utils import collect_result
-from vibe.core.tools.base import BaseTool, BaseToolConfig, BaseToolState, InvokeContext
-from vibe.core.types import ApprovalCallback, ApprovalResponse, ToolStreamEvent
+from aura.core.tools.base import BaseTool, BaseToolConfig, BaseToolState, InvokeContext
+from aura.core.types import ApprovalCallback, ApprovalResponse, ToolStreamEvent
 
 
 class SimpleArgs(BaseModel):

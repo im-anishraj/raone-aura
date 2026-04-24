@@ -88,7 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use shell environment to determine shell in bash tool
 - Expanded user input handling
 - Bumped agent-client-protocol to 0.7.1
-- Refactored UI to require AgentLoop at VibeApp construction
+- Refactored UI to require AgentLoop at AuraTerminal construction
 - Updated README with new MCP server config
 - Improved readability of the AskUserQuerstion tool output
 
@@ -113,7 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- bash tool not discovered by vibe-acp
+- bash tool not discovered by aura-acp
 
 ## [1.3.4] - 2026-01-07
 
@@ -189,8 +189,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Modular mode system
-- Trusted folder mechanism for local .vibe directories
-- Document public setup for vibe-acp in zed, jetbrains and neovim
+- Trusted folder mechanism for local .aura directories
+- Document public setup for aura-acp in zed, jetbrains and neovim
 - `--version` flag
 
 ### Changed
@@ -276,7 +276,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Rename agent in distribution/zed/extension.toml to mistral-vibe
+- Rename agent in distribution/zed/extension.toml to mistral-aura
 
 ### Fixed
 
@@ -296,7 +296,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fix setup flow for vibe-acp builds
+- Fix setup flow for aura-acp builds
 
 ## [1.0.1] - 2025-12-09
 

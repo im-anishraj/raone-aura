@@ -1,6 +1,6 @@
 import asyncio
-from vibe.core.llm.backend.openai import OpenAIBackend
-from vibe.core.types import LLMMessage, Role, LLMChunk, LLMUsage, ModelConfig, ProviderConfig, Backend, AvailableTool
+from aura.core.llm.backend.openai import OpenAIBackend
+from aura.core.types import LLMMessage, Role, LLMChunk, LLMUsage, ModelConfig, ProviderConfig, Backend, AvailableTool
 
 async def main():
     print("Testing OpenAIBackend...")

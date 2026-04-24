@@ -11,14 +11,14 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 import zstandard
 
-from vibe.core.teleport.errors import (
+from aura.core.teleport.errors import (
     ServiceTeleportError,
     ServiceTeleportNotSupportedError,
 )
-from vibe.core.teleport.git import GitRepoInfo
-from vibe.core.teleport.nuage import TeleportSession
-from vibe.core.teleport.teleport import _NUAGE_EXECUTION_URL_TEMPLATE, TeleportService
-from vibe.core.teleport.types import (
+from aura.core.teleport.git import GitRepoInfo
+from aura.core.teleport.nuage import TeleportSession
+from aura.core.teleport.teleport import _NUAGE_EXECUTION_URL_TEMPLATE, TeleportService
+from aura.core.teleport.types import (
     TeleportAuthCompleteEvent,
     TeleportAuthRequiredEvent,
     TeleportCheckingGitEvent,
@@ -32,10 +32,10 @@ from vibe.core.teleport.types import (
 
 
 def _reimport_agent_loop() -> Any:
-    to_clear = ("vibe.core.agent_loop", "git", "vibe.core.teleport")
+    to_clear = ("aura.core.agent_loop", "git", "aura.core.teleport")
     for k in [k for k in sys.modules if any(k.startswith(m) for m in to_clear)]:
         del sys.modules[k]
-    return importlib.import_module("vibe.core.agent_loop")
+    return importlib.import_module("aura.core.agent_loop")
 
 
 class TestTeleportServiceCompressDiff:

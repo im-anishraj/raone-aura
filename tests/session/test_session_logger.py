@@ -9,11 +9,11 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from tests.conftest import build_test_vibe_config
-from vibe.core.agents.models import AgentProfile, AgentSafety
-from vibe.core.config import SessionLoggingConfig, VibeConfig
-from vibe.core.session.session_logger import SessionLogger
-from vibe.core.tools.manager import ToolManager
-from vibe.core.types import AgentStats, LLMMessage, Role, SessionMetadata
+from aura.core.agents.models import AgentProfile, AgentSafety
+from aura.core.config import SessionLoggingConfig, AuraConfig
+from aura.core.session.session_logger import SessionLogger
+from aura.core.tools.manager import ToolManager
+from aura.core.types import AgentStats, LLMMessage, Role, SessionMetadata
 
 
 @pytest.fixture
@@ -61,8 +61,8 @@ def mock_tool_manager() -> ToolManager:
 
 
 @pytest.fixture
-def mock_vibe_config() -> VibeConfig:
-    """Create a mock vibe config for testing."""
+def mock_vibe_config() -> AuraConfig:
+    """Create a mock aura config for testing."""
     return build_test_vibe_config(active_model="test-model", models=[], providers=[])
 
 
@@ -107,8 +107,8 @@ class TestSessionLoggerInitialization:
 
 
 class TestSessionLoggerMetadata:
-    @patch("vibe.core.session.session_logger.subprocess.run")
-    @patch("vibe.core.session.session_logger.getpass.getuser")
+    @patch("aura.core.session.session_logger.subprocess.run")
+    @patch("aura.core.session.session_logger.getpass.getuser")
     def test_session_metadata_initialization(
         self, mock_getuser, mock_subprocess, session_config: SessionLoggingConfig
     ) -> None:
@@ -140,8 +140,8 @@ class TestSessionLoggerMetadata:
         assert "working_directory" in metadata.environment
         assert metadata.environment["working_directory"] == str(Path.cwd())
 
-    @patch("vibe.core.session.session_logger.subprocess.run")
-    @patch("vibe.core.session.session_logger.getpass.getuser")
+    @patch("aura.core.session.session_logger.subprocess.run")
+    @patch("aura.core.session.session_logger.getpass.getuser")
     def test_session_metadata_with_git_errors(
         self, mock_getuser, mock_subprocess, session_config: SessionLoggingConfig
     ) -> None:
@@ -191,7 +191,7 @@ class TestSessionLoggerSaveInteraction:
     async def test_save_interaction_success(
         self,
         session_config: SessionLoggingConfig,
-        mock_vibe_config: VibeConfig,
+        mock_vibe_config: AuraConfig,
         mock_tool_manager: ToolManager,
         mock_agent_profile: AgentProfile,
     ) -> None:
@@ -240,7 +240,7 @@ class TestSessionLoggerSaveInteraction:
     async def test_save_interaction_system_prompt_in_metadata(
         self,
         session_config: SessionLoggingConfig,
-        mock_vibe_config: VibeConfig,
+        mock_vibe_config: AuraConfig,
         mock_tool_manager: ToolManager,
         mock_agent_profile: AgentProfile,
     ) -> None:
@@ -289,7 +289,7 @@ class TestSessionLoggerSaveInteraction:
     async def test_save_interaction_with_existing_messages(
         self,
         session_config: SessionLoggingConfig,
-        mock_vibe_config: VibeConfig,
+        mock_vibe_config: AuraConfig,
         mock_tool_manager: ToolManager,
         mock_agent_profile: AgentProfile,
     ) -> None:
@@ -354,7 +354,7 @@ class TestSessionLoggerSaveInteraction:
     async def test_save_interaction_no_new_messages_is_noop(
         self,
         session_config: SessionLoggingConfig,
-        mock_vibe_config: VibeConfig,
+        mock_vibe_config: AuraConfig,
         mock_tool_manager: ToolManager,
         mock_agent_profile: AgentProfile,
     ) -> None:
@@ -411,7 +411,7 @@ class TestSessionLoggerSaveInteraction:
     async def test_save_interaction_no_user_messages(
         self,
         session_config: SessionLoggingConfig,
-        mock_vibe_config: VibeConfig,
+        mock_vibe_config: AuraConfig,
         mock_tool_manager: ToolManager,
         mock_agent_profile: AgentProfile,
     ) -> None:
@@ -457,7 +457,7 @@ class TestSessionLoggerSaveInteraction:
     async def test_save_interaction_long_user_message(
         self,
         session_config: SessionLoggingConfig,
-        mock_vibe_config: VibeConfig,
+        mock_vibe_config: AuraConfig,
         mock_tool_manager: ToolManager,
         mock_agent_profile: AgentProfile,
     ) -> None:

@@ -5,9 +5,9 @@ from textual.containers import Container
 from textual.pilot import Pilot
 
 from tests.snapshots.snap_compare import SnapCompare
-from vibe.cli.textual_ui.widgets.question_app import QuestionApp
-from vibe.cli.textual_ui.widgets.teleport_message import TeleportMessage
-from vibe.core.tools.builtins.ask_user_question import (
+from aura.cli.textual_ui.widgets.question_app import QuestionApp
+from aura.cli.textual_ui.widgets.teleport_message import TeleportMessage
+from aura.core.tools.builtins.ask_user_question import (
     AskUserQuestionArgs,
     Choice,
     Question,
@@ -15,7 +15,7 @@ from vibe.core.tools.builtins.ask_user_question import (
 
 
 class TeleportMessageTestApp(App):
-    CSS_PATH = "../../vibe/cli/textual_ui/app.tcss"
+    CSS_PATH = "../../aura/cli/textual_ui/app.tcss"
 
     def compose(self) -> ComposeResult:
         with Container():
@@ -99,7 +99,7 @@ def _push_confirmation_args(count: int) -> AskUserQuestionArgs:
 
 
 class TeleportPushConfirmationTestApp(App):
-    CSS_PATH = "../../vibe/cli/textual_ui/app.tcss"
+    CSS_PATH = "../../aura/cli/textual_ui/app.tcss"
 
     def __init__(self, count: int = 3):
         super().__init__()

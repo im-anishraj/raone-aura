@@ -16,21 +16,21 @@ from tests.update_notifier.adapters.fake_update_cache_repository import (
     FakeUpdateCacheRepository,
 )
 from tests.update_notifier.adapters.fake_update_gateway import FakeUpdateGateway
-from vibe.cli.plan_offer.ports.whoami_gateway import WhoAmIResponse
-from vibe.cli.textual_ui.widgets.messages import (
+from aura.cli.plan_offer.ports.whoami_gateway import WhoAmIResponse
+from aura.cli.textual_ui.widgets.messages import (
     AssistantMessage,
     UserMessage,
     WhatsNewMessage,
 )
-from vibe.cli.textual_ui.widgets.tools import ToolCallMessage, ToolResultMessage
-from vibe.cli.update_notifier import UpdateCache
-from vibe.core.config import VibeConfig
-from vibe.core.types import FunctionCall, LLMMessage, Role, ToolCall
+from aura.cli.textual_ui.widgets.tools import ToolCallMessage, ToolResultMessage
+from aura.cli.update_notifier import UpdateCache
+from aura.core.config import AuraConfig
+from aura.core.types import FunctionCall, LLMMessage, Role, ToolCall
 
 
 @pytest.mark.asyncio
 async def test_ui_displays_messages_when_resuming_session(
-    vibe_config: VibeConfig,
+    vibe_config: AuraConfig,
 ) -> None:
     """Test that messages are properly displayed when resuming a session."""
     agent_loop = build_test_agent_loop(config=vibe_config)
@@ -89,7 +89,7 @@ async def test_ui_displays_messages_when_resuming_session(
 
 @pytest.mark.asyncio
 async def test_ui_does_not_display_messages_when_only_system_messages_exist(
-    vibe_config: VibeConfig,
+    vibe_config: AuraConfig,
 ) -> None:
     """Test that no messages are displayed when only system messages exist."""
     agent_loop = build_test_agent_loop(config=vibe_config)
@@ -113,7 +113,7 @@ async def test_ui_does_not_display_messages_when_only_system_messages_exist(
 
 @pytest.mark.asyncio
 async def test_ui_displays_multiple_user_assistant_turns(
-    vibe_config: VibeConfig,
+    vibe_config: AuraConfig,
 ) -> None:
     """Test that multiple conversation turns are properly displayed."""
     agent_loop = build_test_agent_loop(config=vibe_config)
@@ -179,7 +179,7 @@ async def test_ui_rebuilds_history_when_whats_new_is_shown(
         config=config,
     )
 
-    with patch("vibe.cli.update_notifier.whats_new.VIBE_ROOT", tmp_path):
+    with patch("aura.cli.update_notifier.whats_new.AURA_ROOT", tmp_path):
         whats_new_file = tmp_path / "whats_new.md"
         whats_new_file.write_text("# What's New\n\n- Feature 1")
 

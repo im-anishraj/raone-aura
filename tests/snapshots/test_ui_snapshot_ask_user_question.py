@@ -4,13 +4,13 @@ from textual.pilot import Pilot
 
 from tests.snapshots.base_snapshot_test_app import BaseSnapshotTestApp
 from tests.snapshots.snap_compare import SnapCompare
-from vibe.cli.textual_ui.widgets.tools import ToolResultMessage
-from vibe.core.tools.builtins.ask_user_question import (
+from aura.cli.textual_ui.widgets.tools import ToolResultMessage
+from aura.core.tools.builtins.ask_user_question import (
     Answer,
     AskUserQuestion,
     AskUserQuestionResult,
 )
-from vibe.core.types import ToolResultEvent
+from aura.core.types import ToolResultEvent
 
 
 class AskUserQuestionResultApp(BaseSnapshotTestApp):
