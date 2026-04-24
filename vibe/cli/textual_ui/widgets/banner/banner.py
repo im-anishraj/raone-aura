@@ -46,22 +46,19 @@ class Banner(Static):
             with Vertical(id="banner-info"):
                 with Horizontal(classes="banner-line"):
                     yield NoMarkupStatic(f"RaOne Aura v{__version__}", id="banner-brand")
-                    yield NoMarkupStatic(" - Autonomous AI Terminal Agent", id="banner-description")
-                
-                with Horizontal(classes="banner-line"):
-                    yield NoMarkupStatic("", classes="banner-meta")  # Spacer
-                
+                    yield NoMarkupStatic(" ━━ Autonomous AI Terminal Agent", id="banner-description")
+
                 with Horizontal(classes="banner-line"):
                     yield NoMarkupStatic("Built by Anish Raj", id="banner-author")
-                
+
                 with Horizontal(classes="banner-line"):
                     yield NoMarkupStatic("", classes="banner-meta")  # Spacer
-                
+
                 with Horizontal(classes="banner-line"):
-                    yield NoMarkupStatic("Supports: Git Bash | CMD | PowerShell", classes="banner-meta")
-                
+                    yield NoMarkupStatic("Shell: Git Bash │ CMD │ PowerShell", classes="banner-meta")
+
                 with Horizontal(classes="banner-line"):
-                    yield NoMarkupStatic("Type /help to begin", classes="banner-meta")
+                    yield NoMarkupStatic("Type /help to begin ─ /settings to configure", classes="banner-meta")
 
     def on_mount(self) -> None:
         self.state = self._initial_state
@@ -79,7 +76,6 @@ class Banner(Static):
         )
 
     def watch_state(self, state: BannerState) -> None:
-        # Check if widget is mounted before updating to avoid errors during initial compose
         if not self.is_mounted:
             return
 
@@ -91,5 +87,4 @@ class Banner(Static):
                 f"{state.skills_count} skills"
             )
         except Exception:
-            # Handle cases where the ID might have been removed or changed
             pass

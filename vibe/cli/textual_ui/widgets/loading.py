@@ -28,23 +28,22 @@ def _format_elapsed(seconds: int) -> str:
 
 
 class LoadingWidget(SpinnerMixin, Static):
-    TARGET_COLORS = ("#FFD800", "#FFAF00", "#FF8205", "#FA500F", "#E10500")
+    TARGET_COLORS = ("#00F0FF", "#7DF9FF", "#FF3B5C", "#FFB3C1", "#FFD700")
     SPINNER_TYPE = SpinnerType.SNAKE
 
     EASTER_EGGS: ClassVar[list[str]] = [
-        "Eating a chocolatine",
-        "Eating a pain au chocolat",
-        "Réflexion",
-        "Analyse",
-        "Contemplation",
-        "Synthèse",
-        "Reading Proust",
-        "Oui oui baguette",
-        "Counting Rs in strawberry",
-        "Seeding Mistral weights",
-        "Vibing",
-        "Sending good vibes",
-        "Petting le chat",
+        "Initializing neural mesh",
+        "Calibrating synaptic links",
+        "Scanning quantum threads",
+        "Decrypting signal pathways",
+        "Bootstrapping RaOne core",
+        "Loading cognitive matrix",
+        "Parsing dimensional data",
+        "Synthesizing response",
+        "Activating deep analysis",
+        "Engaging hyperdrive",
+        "Processing with precision",
+        "Channeling Aura energy",
     ]
 
     EASTER_EGGS_HALLOWEEN: ClassVar[list[str]] = [
