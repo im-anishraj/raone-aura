@@ -900,7 +900,7 @@ Banner {
 
 .banner-chat {
     width: auto;
-    color: #FF0033;
+    color: #39FF14;
 }
 
 #banner-info {
