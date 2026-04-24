@@ -37,7 +37,6 @@ TRANSITIONS = [
     {"remove": {8j + 8, 8j + 10, 8j + 12, 8j + 14, 4j + 3, 4j + 4, 4j + 5, 5j + 3, 5j + 4, 5j + 5, 4j + 6, 5j + 6, 8j + 6}, "add": {4j + 7, 4j + 8, 4j + 9, 5j + 7, 5j + 8, 5j + 9, 5j + 10, 4j + 10}},
     {"remove": {4j + 4, 5j + 3, 5j + 4, 4j + 3}, "add": {8j + 8, 8j + 10, 8j + 12, 8j + 14, 4j + 7, 4j + 8, 5j + 7, 5j + 8, 8j + 6}},
     {"remove": {8j + 8, 8j + 10, 8j + 12, 8j + 14, 8j + 6}, "add": set[int]()},
-](), "add": set[int]()},
 ]
 # cf render_braille() docstring for coordinates convention
 
