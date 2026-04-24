@@ -1,23 +1,44 @@
-/* ═══════════════════════════════════════════════════════════
-   RaOne Aura — Premium Terminal Theme
-   ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   ██████╗  █████╗  ██████╗ ███╗   ██╗███████╗
+   ██╔══██╗██╔══██╗██╔═══██╗████╗  ██║██╔════╝
+   ██████╔╝███████║██║   ██║██╔██╗ ██║█████╗
+   ██╔══██╗██╔══██║██║   ██║██║╚██╗██║██╔══╝
+   ██║  ██║██║  ██║╚██████╔╝██║ ╚████║███████╗
+   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+   RaOne Aura — Ultimate Cyberpunk Terminal Theme
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── Core Brand Palette ── */
-$user_blue: #4EA1FF;          /* Clean bright blue — user identity */
-$user_text: #B8D4F0;          /* Soft blue-white — user message readability */
-$ai_crimson: #FF6B6B;         /* Premium soft crimson — RaOne identity */
-$ai_text: #E8C4C4;            /* Warm rose-tinted white — AI message readability */
-$menu_yellow: #FFD700;        /* Rich gold — menus, headings, navigation */
+/* ── Core Brand Palette ──────────────────────────────────────────────────── */
+$cyan_electric: #00F0FF;       /* Electric cyan — primary accent, user identity */
+$cyan_glow: #7DF9FF;           /* Cyan glow — user message text */
+$cyan_dim: #1A3A4A;            /* Dimmed cyan — subtle borders */
 
-/* ── Accent & UI Surface Tones ── */
-$surface_dim: #1A1A2E;        /* Deep navy-black surface */
-$border_subtle: #2A2A3E;      /* Subtle border tone */
-$text_muted: #6B7280;         /* Muted helper text */
+$crimson_neon: #FF3B5C;        /* Neon crimson — RaOne identity */
+$crimson_soft: #FFB3C1;        /* Soft pink — AI message readability */
+
+$gold_plasma: #FFD700;         /* Plasma gold — headings, menus */
+$gold_ember: #FFA500;          /* Ember orange — secondary accent */
+
+$magenta_neon: #FF00FF;        /* Neon magenta — special highlights */
+$violet_deep: #8B5CF6;         /* Deep violet — reasoning/thinking */
+
+$green_matrix: #00FF88;        /* Matrix green — success states */
+$green_dim: #00CC66;           /* Dimmed green — toggles on */
+
+$text_plasma: #E0E6FF;         /* Plasma white — primary text */
+$text_ghost: #6B7B9E;          /* Ghost gray — muted text */
+$text_dim: #3D4663;            /* Dim gray — very muted */
+
+$surface_void: #0A0E1A;        /* Void black — deepest surface */
+$surface_dark: #111827;        /* Dark surface — containers */
+$border_glow: #1E293B;         /* Border glow — subtle edges */
+
+/* ── Global Reset ────────────────────────────────────────────────────────── */
 
 * {
-    scrollbar-color: ansi_black;
-    scrollbar-color-hover: ansi_bright_black;
-    scrollbar-color-active: ansi_bright_black;
+    scrollbar-color: $text_dim;
+    scrollbar-color-hover: $text_ghost;
+    scrollbar-color-active: $cyan_electric;
     scrollbar-background: transparent;
     scrollbar-background-hover: transparent;
     scrollbar-background-active: transparent;
@@ -34,8 +55,10 @@ Horizontal {
 }
 
 TextArea > .text-area--cursor {
-    color: ansi_default;
+    color: $cyan_electric;
 }
+
+/* ── Chat Area ───────────────────────────────────────────────────────────── */
 
 #chat {
     layout: stream;
@@ -44,6 +67,8 @@ TextArea > .text-area--cursor {
     background: transparent;
     padding: 0;
 }
+
+/* ── Loading Area ────────────────────────────────────────────────────────── */
 
 #loading-area {
     height: auto;
@@ -59,6 +84,8 @@ TextArea > .text-area--cursor {
     height: auto;
     align: left middle;
 }
+
+/* ── Bottom Container ────────────────────────────────────────────────────── */
 
 #bottom-app-container,
 #input-container {
@@ -82,6 +109,8 @@ TextArea > .text-area--cursor {
     background: transparent;
 }
 
+/* ── Messages Area ───────────────────────────────────────────────────────── */
+
 #messages {
     layout: stream;
     width: 100%;
@@ -91,6 +120,8 @@ TextArea > .text-area--cursor {
     margin-bottom: 0;
 }
 
+/* ── Input Box — Glowing Cyan Border ─────────────────────────────────────── */
+
 #input-container {
     padding: 0;
     margin: 0;
@@ -99,31 +130,31 @@ TextArea > .text-area--cursor {
 #completion-popup {
     width: 100%;
     padding: 1;
-    color: ansi_default;
+    color: $text_plasma;
 }
 
 #input-box {
     height: auto;
     width: 100%;
     background: transparent;
-    border: solid ansi_bright_black;
+    border: solid $cyan_dim;
     border-title-align: right;
-    border-title-color: ansi_bright_black;
+    border-title-color: $text_ghost;
     padding: 0 1;
 
     &.border-warning {
-        border: solid ansi_yellow;
-        border-title-color: ansi_yellow;
+        border: solid $gold_plasma;
+        border-title-color: $gold_plasma;
     }
 
     &.border-safe {
-        border: solid ansi_green;
-        border-title-color: ansi_green;
+        border: solid $green_matrix;
+        border-title-color: $green_matrix;
     }
 
     &.border-error {
-        border: solid ansi_red;
-        border-title-color: ansi_red;
+        border: solid $crimson_neon;
+        border-title-color: $crimson_neon;
     }
 }
 
@@ -134,7 +165,7 @@ TextArea > .text-area--cursor {
 #prompt {
     width: auto;
     background: transparent;
-    color: $user_blue;
+    color: $cyan_electric;
     text-style: bold;
     padding: 0 1 0 0;
 }
@@ -145,11 +176,13 @@ TextArea > .text-area--cursor {
     min-height: 3;
     max-height: 50vh;
     background: transparent;
-    color: ansi_default;
+    color: $text_plasma;
     border: none;
     padding: 0;
     scrollbar-visibility: hidden;
 }
+
+/* ── Toast Notifications ─────────────────────────────────────────────────── */
 
 ToastRack {
     align: left bottom;
@@ -157,12 +190,14 @@ ToastRack {
     margin: 0 0 6 0;
 }
 
+/* ── Markdown — Global Styling ───────────────────────────────────────────── */
+
 Markdown {
-    color: ansi_default;
+    color: $text_plasma;
 
     .code_inline {
-        color: ansi_default;
-        background: ansi_bright_black;
+        color: $cyan_glow;
+        background: $border_glow;
     }
 
     MarkdownFence {
@@ -182,15 +217,19 @@ Markdown {
 
     MarkdownBlockQuote {
         background: transparent;
-        border-left: outer ansi_bright_black;
+        border-left: outer $violet_deep;
     }
 
     MarkdownBullet,
     MarkdownBulletList,
     MarkdownOrderedList {
-        color: ansi_default;
+        color: $text_plasma;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   USER MESSAGES — Electric Cyan Identity
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .user-message {
     margin-top: 1;
@@ -200,7 +239,7 @@ Markdown {
     &.pending {
         .user-message-label,
         .user-message-content {
-            opacity: 0.7;
+            opacity: 0.5;
             text-style: italic;
         }
     }
@@ -214,7 +253,7 @@ Markdown {
 .user-message-label {
     width: auto;
     height: auto;
-    color: $user_blue;
+    color: $cyan_electric;
     text-style: bold;
     margin-right: 1;
 }
@@ -222,25 +261,26 @@ Markdown {
 .user-message-content {
     width: 1fr;
     height: auto;
-    text-style: bold;
-    color: $user_text;
+    color: $cyan_glow;
 }
 
-/* ── AI / RaOne Messages ── */
+/* ═══════════════════════════════════════════════════════════════════════════
+   RAONE MESSAGES — Neon Crimson Identity
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .assistant-message {
     layout: stream;
     margin-top: 1;
     width: 100%;
     height: auto;
-    color: $ai_text;
+    color: $crimson_soft;
 
     Markdown {
         width: 100%;
         height: auto;
         padding: 0;
         margin: 0;
-        color: $ai_text;
+        color: $crimson_soft;
 
         & > *:last-child {
             margin-bottom: 0;
@@ -251,10 +291,14 @@ Markdown {
 .assistant-message-label {
     width: auto;
     height: auto;
-    color: $ai_crimson;
+    color: $crimson_neon;
     text-style: bold;
     margin-bottom: 0;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REASONING / THINKING — Deep Violet
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .reasoning-message {
     margin-top: 1;
@@ -271,11 +315,11 @@ Markdown {
 .reasoning-indicator {
     width: auto;
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
     margin-right: 1;
 
     &.success {
-        color: ansi_green;
+        color: $green_matrix;
     }
 }
 
@@ -283,7 +327,7 @@ Markdown {
 .reasoning-triangle {
     width: auto;
     height: auto;
-    color: ansi_bright_black;
+    color: $violet_deep;
     text-style: italic;
 }
 
@@ -297,11 +341,11 @@ Markdown {
     height: auto;
     padding: 0 0 0 2;
     margin: 0;
-    color: ansi_bright_black;
+    color: $text_ghost;
     text-style: italic;
 
     * {
-        color: ansi_bright_black;
+        color: $text_ghost;
         text-style: italic;
     }
 
@@ -309,6 +353,10 @@ Markdown {
         margin-bottom: 0;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STATUS MESSAGES — Interrupts, Errors, Warnings
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .interrupt-message,
 .error-message,
@@ -337,21 +385,21 @@ Markdown {
     width: auto;
     height: 100%;
     padding: 0 1 0 2;
-    color: ansi_bright_black;
+    color: $text_dim;
 }
 
 .interrupt-content {
     width: 1fr;
     height: auto;
     margin: 0;
-    color: ansi_yellow;
+    color: $gold_plasma;
 }
 
 .error-content {
     width: 1fr;
     height: auto;
     margin: 0;
-    color: ansi_red;
+    color: $crimson_neon;
     text-style: bold;
 }
 
@@ -359,7 +407,7 @@ Markdown {
     width: 1fr;
     height: auto;
     margin: 0;
-    color: ansi_yellow;
+    color: $gold_ember;
 }
 
 .user-command-content {
@@ -380,6 +428,10 @@ Markdown {
         }
     }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASH OUTPUT — Terminal Within Terminal
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .bash-output-message {
     margin-top: 1;
@@ -402,11 +454,11 @@ Markdown {
     height: auto;
 
     &.bash-success {
-        color: ansi_green;
+        color: $green_matrix;
     }
 
     &.bash-error {
-        color: ansi_red;
+        color: $crimson_neon;
     }
 }
 
@@ -425,7 +477,7 @@ Markdown {
     width: auto;
     height: 100%;
     padding: 0 1 0 2;
-    color: ansi_bright_black;
+    color: $text_dim;
 }
 
 .bash-output {
@@ -435,8 +487,12 @@ Markdown {
 
 .unknown-event {
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   STATUS INDICATORS
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 StatusMessage {
     width: 100%;
@@ -451,23 +507,27 @@ StatusMessage {
 .status-indicator-icon {
     width: auto;
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
     margin-right: 1;
 
     &.success {
-        color: ansi_green;
+        color: $green_matrix;
     }
 
     &.error {
-        color: ansi_red;
+        color: $crimson_neon;
     }
 }
 
 .status-indicator-text {
     width: 1fr;
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TOOL CALLS — Polished Developer Panels
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .compact-message,
 .tool-call {
@@ -488,7 +548,7 @@ StatusMessage {
 .tool-stream-message {
     width: 100%;
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
     padding-left: 2;
 }
 
@@ -499,14 +559,14 @@ StatusMessage {
     margin-left: 0;
     padding: 0;
     background: transparent;
-    color: ansi_default;
+    color: $text_plasma;
 
     &.error-text {
-        color: ansi_red;
+        color: $crimson_neon;
     }
 
     &.warning-text {
-        color: ansi_yellow;
+        color: $gold_ember;
     }
 }
 
@@ -521,7 +581,7 @@ StatusMessage {
     width: auto;
     height: 100%;
     padding: 0 1 0 2;
-    color: ansi_bright_black;
+    color: $text_dim;
 }
 
 .tool-result-content {
@@ -534,7 +594,7 @@ StatusMessage {
 .tool-result-widget {
     width: 100%;
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
 }
 
 .tool-result-widget Static {
@@ -544,7 +604,7 @@ StatusMessage {
 .tool-call-detail,
 .tool-result-detail {
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
 
 .tool-result-detail {
@@ -552,64 +612,76 @@ StatusMessage {
 }
 
 .tool-result-error {
-    color: ansi_red;
+    color: $crimson_neon;
 }
 
 .tool-result-warning {
-    color: ansi_yellow;
+    color: $gold_ember;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DIFF VIEWER — Color-Coded Changes
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .diff-header {
     height: auto;
-    color: ansi_bright_black;
+    color: $cyan_electric;
     text-style: bold;
 }
 
 .diff-removed {
     height: auto;
-    color: ansi_red;
+    color: $crimson_neon;
 }
 
 .diff-added {
     height: auto;
-    color: ansi_green;
+    color: $green_matrix;
 }
 
 .diff-range {
     height: auto;
-    color: ansi_blue;
+    color: $violet_deep;
 }
 
 .diff-context {
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TODO TRACKER
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .todo-empty,
 .todo-cancelled {
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
 
 .todo-pending {
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
 }
 
 .todo-in_progress {
     height: auto;
-    color: ansi_yellow;
+    color: $gold_plasma;
 }
 
 .todo-completed {
     height: auto;
-    color: ansi_green;
+    color: $green_matrix;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LOADING WIDGET — Animated Progress
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .loading-widget {
     width: 100%;
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
 
 .loading-container,
@@ -637,8 +709,12 @@ StatusMessage {
 .loading-hint {
     width: auto;
     height: auto;
-    color: $foreground;
+    color: $text_ghost;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   HISTORY
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .history-load-more-message {
     width: 100%;
@@ -657,7 +733,7 @@ StatusMessage {
 .history-load-more-button {
     background: transparent;
     border: none;
-    color: $menu_yellow;
+    color: $cyan_electric;
     text-style: bold;
     pointer: pointer;
     padding: 1;
@@ -667,11 +743,15 @@ StatusMessage {
 
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   SETTINGS PANEL — Gold Accented
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 #config-app {
     width: 100%;
     height: auto;
     background: transparent;
-    border: solid ansi_bright_black;
+    border: solid $border_glow;
     padding: 0 1;
     margin: 0;
 }
@@ -684,57 +764,61 @@ StatusMessage {
 .settings-title {
     height: auto;
     text-style: bold;
-    color: $menu_yellow;
+    color: $gold_plasma;
 }
 
 .settings-option {
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
 }
 
 .settings-cursor-selected {
-    color: $menu_yellow;
+    color: $cyan_electric;
     text-style: bold;
 }
 
 .settings-label-selected {
-    color: ansi_default;
+    color: $text_plasma;
     text-style: bold;
 }
 
 .settings-value-toggle-on-selected {
-    color: ansi_green;
+    color: $green_matrix;
     text-style: bold;
 }
 
 .settings-value-toggle-on-unselected {
-    color: ansi_green;
+    color: $green_dim;
 }
 
 .settings-value-toggle-off {
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
 
 .settings-value-cycle-selected {
-    color: $menu_yellow;
+    color: $cyan_electric;
     text-style: bold;
 }
 
 .settings-value-cycle-unselected {
-    color: $menu_yellow;
+    color: $cyan_glow;
 }
 
 .settings-help {
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   APPROVAL PANEL
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 #approval-app {
     width: 100%;
     height: auto;
     max-height: 70vh;
     background: transparent;
-    border: solid ansi_bright_black;
+    border: solid $border_glow;
     padding: 0 1;
     margin: 0;
 }
@@ -759,7 +843,7 @@ StatusMessage {
 .approval-title {
     height: auto;
     text-style: bold;
-    color: $menu_yellow;
+    color: $gold_plasma;
 }
 
 .approval-tool-info-container {
@@ -780,54 +864,58 @@ StatusMessage {
 
 .approval-option {
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
 }
 
 .approval-cursor-selected {
     &.approval-option-yes {
-        color: ansi_green;
+        color: $green_matrix;
         text-style: bold;
     }
 
     &.approval-option-no {
-        color: ansi_red;
+        color: $crimson_neon;
         text-style: bold;
     }
 }
 
 .approval-option-selected {
     &.approval-option-yes {
-        color: ansi_green;
+        color: $green_matrix;
     }
 
     &.approval-option-no {
-        color: ansi_red;
+        color: $crimson_neon;
     }
 }
 
 .approval-help {
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
 
 .approval-description {
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
 }
 
 .code-block {
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
     background: transparent;
     padding: 1;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   QUESTION PANEL
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 #question-app {
     width: 100%;
     height: auto;
     max-height: 70vh;
     background: transparent;
-    border: solid ansi_bright_black;
+    border: solid $border_glow;
     padding: 0 1;
     margin: 0;
 }
@@ -839,24 +927,24 @@ StatusMessage {
 
 .question-tabs {
     height: auto;
-    color: $menu_yellow;
+    color: $cyan_electric;
     margin-bottom: 1;
 }
 
 .question-title {
     height: auto;
     text-style: bold;
-    color: $menu_yellow;
+    color: $gold_plasma;
     margin-bottom: 1;
 }
 
 .question-option {
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
 }
 
 .question-option-selected {
-    color: $menu_yellow;
+    color: $cyan_electric;
     text-style: bold;
 }
 
@@ -868,7 +956,7 @@ StatusMessage {
 .question-other-prefix {
     width: auto;
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
 }
 
 .question-other-input {
@@ -882,18 +970,18 @@ StatusMessage {
 .question-other-static {
     width: auto;
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
 
 .question-submit {
     height: auto;
-    color: ansi_default;
+    color: $text_plasma;
     margin-top: 1;
 }
 
 .question-help {
     height: auto;
-    color: ansi_bright_black;
+    color: $text_ghost;
     margin-top: 1;
 }
 
@@ -903,6 +991,10 @@ ExpandingBorder {
     content-align: left bottom;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   BOTTOM BAR — Path & Context
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 PathDisplay,
 ContextProgress {
     width: auto;
@@ -910,8 +1002,12 @@ ContextProgress {
     background: transparent;
     padding: 0;
     margin: 0;
-    color: ansi_bright_black;
+    color: $text_ghost;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BANNER — Premium RaOne Branding
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 Banner {
     height: auto;
@@ -926,7 +1022,7 @@ Banner {
 
 .banner-chat {
     width: auto;
-    color: #00FFFF;
+    color: $cyan_electric;
 }
 
 #banner-info {
@@ -942,13 +1038,13 @@ Banner {
 }
 
 #banner-brand {
-    color: $menu_yellow;
+    color: $crimson_neon;
     text-style: bold;
     width: auto;
 }
 
 #banner-description {
-    color: ansi_cyan;
+    color: $cyan_electric;
     text-style: bold;
     width: auto;
 }
@@ -959,38 +1055,42 @@ Banner {
 }
 
 .banner-meta {
-    color: ansi_default;
+    color: $text_ghost;
     width: auto;
 }
 
 #banner-author {
-    color: ansi_bright_black;
+    color: $gold_plasma;
+    text-style: bold;
     width: auto;
 }
 
 #banner-meta-counts {
     width: auto;
-    color: ansi_default;
+    color: $text_ghost;
 }
 
 #banner-model {
-    color: ansi_cyan;
+    color: $cyan_electric;
     width: auto;
 }
 
 #banner-help {
-    color: ansi_cyan;
+    color: $cyan_electric;
     width: auto;
 }
 
 .petit-chat {
-    color: ansi_default;
+    color: $cyan_electric;
     width: 12;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   WHAT'S NEW — Release Notes
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 .whats-new-message {
-    border-left: heavy $menu_yellow;
+    border-left: heavy $cyan_electric;
     margin-bottom: 1;
 
     Markdown {
@@ -1019,19 +1119,35 @@ Banner {
     link-style: none;
     link-background-hover: transparent;
     link-style-hover: underline;
-    link-color-hover: $menu_yellow;
+    link-color-hover: $cyan_electric;
 }
 
 .whats-new-message.after-history {
     margin-top: 1;
 }
 
-MarkdownH1,
-MarkdownH2,
-MarkdownH3,
+/* ═══════════════════════════════════════════════════════════════════════════
+   MARKDOWN HEADINGS — Gold Hierarchy
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+MarkdownH1 {
+    color: $gold_plasma;
+    text-style: bold;
+}
+
+MarkdownH2 {
+    color: $gold_plasma;
+    text-style: bold;
+}
+
+MarkdownH3 {
+    color: $gold_ember;
+    text-style: bold;
+}
+
 MarkdownH4,
 MarkdownH5,
 MarkdownH6 {
-    color: $menu_yellow;
+    color: $cyan_glow;
     text-style: bold;
 }
